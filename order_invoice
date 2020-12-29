@@ -154,6 +154,12 @@
               {% endif %}
             {% endfor %}
           {% endif %}
+<!-- WCCD EDITS -->
+{% for tag in line.product.tags %}
+                  {% if tag contains 'Pick-Up:' %}
+                <div class="pick-up-tag">{{ tag }}</div>
+                  {% endif %}
+                {% endfor %}
         </td>
           <td class="order-list__price-cell">
             {% if line.original_line_price != line.final_line_price %}
