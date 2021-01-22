@@ -104,10 +104,16 @@
     {% capture effective_image_dimensions %}
       {{ resolution_adjusted_size }}x{{ resolution_adjusted_size }}
     {% endcapture %}
-
-    {% for line_item in line_items_in_shipment %}
+    
+{% assign npexpo = "" %}
+{% assign tssale = "" %}
+{% assign other = "" %}
+{% assign sorted_line_items = line_items_in_shipment | sort: "sku" %}
+    {% for line_item in sorted_line_items %}
+      {% capture line_item_html %} 
       <div class="flex-line-item">
         <div class="flex-line-item-img">
+           
           {% if line_item.image != blank %}
             <div class="aspect-ratio aspect-ratio-square" style="width: {{ desired_image_size }}px; height: {{ desired_image_size }}px;">
               {{ line_item.image | img_url: effective_image_dimensions | img_tag: '', 'aspect-ratio__content' }}
@@ -133,11 +139,42 @@
         </div>
         <div class="flex-line-item-quantity">
           <p class="text-align-right">
-            {{ line_item.shipping_quantity }} of {{ line_item.quantity }}
+            {{ line_item.shipping_quantity }}
           </p>
         </div>
       </div>
+      {% endcapture %}
+      {% if line_item.sku contains "WILD"
+    		 or line_item.sku contains "GRASS" 
+        		 or line_item.sku contains "NPEXPO" 
+     		 or line_item.sku contains "GARDEN" %}
+          {% assign npexpo = npexpo | append: line_item_html %}
+      {% elsif line_item.sku contains "SHRUB" 
+        		or line_item.sku contains "TREE" 
+            		or line_item.sku contains "BERRY" 
+            		or line_item.sku contains "HARDWOOD" 
+            		or line_item.sku contains "SEEDLING" 
+                		or line_item.sku contains "PACKET" 
+            		or line_item.sku contains "SUPPLIES" 
+            		or line_item.sku contains "FRUIT" 
+        		or line_item.sku contains "CONIFER" %}
+          {% assign tssale = tssale | append: line_item_html %}
+      {% else %}
+          {% assign other = other | append: line_item_html %}
+      {% endif %}
     {% endfor %}
+    {% if npexpo != "" %}
+    <div class="h2 pickup">Native Plant Expo - June 5th</div>
+      {{ npexpo }}
+    {% endif %}
+    {% if tssale != "" %}
+    <div class="h2 pickup">Tree & Shrub Sale - April 23rd-24th</div>
+      {{ tssale }}
+    {% endif %}
+    {% if other != "" %}
+    <div class="h2 pickup">Monthly pick-ups at WCCD Office</div>
+      {{ other }}
+    {% endif %}
   </div>
   {% unless includes_all_line_items_in_order %}
     <hr class="subdued-separator">
