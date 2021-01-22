@@ -325,6 +325,7 @@
     align-items: center;
     margin: 1.4em 0;
     page-break-inside: avoid;
+    border-bottom: 1px solid;
   }
 
   .flex-line-item-img {
@@ -351,6 +352,9 @@
     -webkit-box-flex: 3;
     -webkit-flex: 3;
     flex: 3;
+    font-size: 18px;
+    display: inline;
+    vertical-align: middle;
   }
 
   .subdued-separator {
@@ -430,5 +434,8 @@
     bottom: 0;
     left: 0;
     margin: auto;
+  }
+  .h2 {
+    font-size: 20px;
   }
 </style>
