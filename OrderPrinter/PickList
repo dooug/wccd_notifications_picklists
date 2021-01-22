@@ -1,13 +1,18 @@
 <p style="float: right; text-align: right; margin: 0;">
   {{ "now" | date: "%m/%d/%y" }}<br />
-  Invoice for {{ order_name }}
+  PickList for Order: {{ order_name }}
 </p>
 
 <div style="float: left; margin: 0 0 1.5em 0;" >
-  <strong style="font-size: 2em;">{{ shop_name }}</strong><br /><br />
-  {{ shop.address }}<br/>
-  {{ shop.city }} {{ shop.province_code }} {{ shop.zip | upcase }}<br/>
-  {{ shop.country }}
+  <strong style="font-size: 2em;">{{ shipping_address.last_name }}, {{ shipping_address.first_name }}</strong><br /><br />
+    {% if shipping_address.company %}
+      {{ shipping_address.company }}<br/>
+    {% endif %}
+    {{ shipping_address.street }}<br/>
+    {{ shipping_address.city }}
+    {{ shipping_address.province_code }}
+    {{ shipping_address.zip | upcase }}<br/>
+    {{ shipping_address.country }}
 </div>
 
 <hr />
@@ -18,33 +23,46 @@
   <thead>
     <tr>
       <th>Quantity</th>
+      <th style="width: 150px;">SKU</th>
       <th>Item</th>
-      {% if show_line_item_taxes %}
-      <th>Taxes</th>
-      {% endif %}
-      <th>Price</th>
+      <th class="borders">Fullfilled by</th>
     </tr>
   </thead>
   <tbody>
-    {% for line_item in line_items %}
+{% assign npexpo = "" %}
+{% assign tssale = "" %}
+{% assign other = "" %}
+    {% assign line_items_sorted = line_items | sort: "sku" %}
+    {% for line_item in line_items_sorted %}
+      {% capture line_item_html %} 
       <tr>
         <td>{{ line_item.quantity }} x</td>
-        <td><b>{{ line_item.title }}</b></td>
-        {% if line_item.tax_lines %}
-          <td>
-            {% for tax_line in line_item.tax_lines %}
-              {{ tax_line.price | money }} {{ tax_line.title }}<br/>
-            {% endfor %}
-          </td>
-        {% endif %}
-        <td>
-          {% if line_item.original_price != line_item.price %}
-            <s>{{ line_item.original_price | money }}</s>
-          {% endif %}
-          {{ line_item.price | money }}
-        </td>
+        <td>{{ line_item.sku }} </td>        
+        <td><b>{{ line_item.product.title }}</b><br />{{ line_item.variant.title }}</td>
+        <td class="borders">        </td>
       </tr>
+      {% endcapture %}
+      {% if line_item.product.tags contains "Pick-Up: Native Plant Distribution June 5" %}
+          {% assign npexpo = npexpo | append: line_item_html %}
+      {% elsif line_item.product.tags contains "Pick-Up: Tree &amp; Shrub Distribution April 23-24" %}
+          {% assign tssale = tssale | append: line_item_html %}
+      {% else %}
+          {% assign other = other | append: line_item_html %}
+      {% endif %}
     {% endfor %}
+        {% if npexpo != "" %}
+    <tr class="event-header"><td colspan="4" class="h2 pickup">Native Plant Expo - June 5th</td></tr>
+      {{ npexpo }}
+    {% endif %}
+    {% if tssale != "" %}
+    <tr class="event-header"><td colspan="4" class="h2 pickup">Tree & Shrub Sale - April 23rd-24th</td></tr>
+      {{ tssale }}
+    {% endif %}
+    {% if other != "" %}
+    <tr class="event-header"><td colspan="4" class="h2 pickup">Monthly pick-ups at WCCD Office</td></tr>
+      {{ other }}
+    {% endif %}
+
   </tbody>
 </table>
 
@@ -116,22 +134,20 @@
   <p>{{ note }}</p>
 {% endif %}
 
-{% if shipping_address %}
-  <h3 style="margin: 0 0 1em 0;">Shipping Details</h3>
 
-  <div style="margin: 0 0 1em 0; padding: 1em; border: 1px solid black;">
-    <strong>{{ shipping_address.name }}</strong><br/>
-    {% if shipping_address.company %}
-      {{ shipping_address.company }}<br/>
-    {% endif %}
-    {{ shipping_address.street }}<br/>
-    {{ shipping_address.city }}
-    {{ shipping_address.province_code }}
-    {{ shipping_address.zip | upcase }}<br/>
-    {{ shipping_address.country }}
-    {{ contact_information }}
-    
+  <h3 style="margin: 0 0 1em 0;">Notes</h3>
+
+  <div style="margin: 0 0 1em 0; padding: 1em; height: 100px; border: 1px solid black;">
+
   </div>
-{% endif %}
 
-<p>If you have any questions, please send an email to <u>{{ shop.email }}</u></p>
+
+<style type="text/css">
+.borders { 
+  border: 1px solid black !important;
+}
+.event-header {
+  padding-top: 10px;
+  background-color: lightgrey;
+}
+</style>
