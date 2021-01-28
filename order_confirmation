@@ -311,11 +311,9 @@
 <tr class="subtotal-line">
   <td class="subtotal-line__title">
     <p>
-      <span>Shipping</span>
     </p>
   </td>
   <td class="subtotal-line__value">
-    <strong>{{ shipping_price | money }}</strong>
   </td>
 </tr>
 
@@ -477,7 +475,7 @@
               <tr>
                 {% if requires_shipping and shipping_address %}
                 <td class="customer-info__item">
-                  <h4>Shipping address</h4>
+                  <h4>Address</h4>
                   {{ shipping_address | format_address }}
                 </td>
                 {% endif %}
@@ -494,7 +492,7 @@
                 {% if requires_shipping and shipping_address %}
                 <td class="customer-info__item">
                   <h4>Shipping method</h4>
-                  <p>{{ shipping_method.title }}</p>
+                  <p>Pick Up</p>
                 </td>
                 {% endif %}
                 {% assign transaction_count = transactions | size %}
