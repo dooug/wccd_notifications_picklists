@@ -1,0 +1,158 @@
+<img src="https://cdn.shopify.com/s/files/1/0260/2604/9613/files/wccd_360x.png?v=1606493635" height="80px" style="float: left">
+<p style="float: right; text-align: right; margin: 10px 0;">
+  {{ "now" | date: "%m/%d/%y" }}<br />
+  Order: <span style="font-size:40x;">{{ order_name }}<br/ >	
+Status: {{ financial_status }}</span>
+</p>
+
+<div style="float: left; margin: 0 0 1.5em 0;" >
+  <strong style="font-size: 75px;">{{ shipping_address.last_name }}, {{ shipping_address.first_name }}</strong><br /><br />
+    {% if shipping_address.company %}
+      {{ shipping_address.company }}<br/>
+    {% endif %}
+    {{ shipping_address.street }}<br/>
+    {{ shipping_address.city }}
+    {{ shipping_address.province_code }}
+    {{ shipping_address.zip | upcase }}<br/>
+    {{ shipping_address.country }}
+</div>
+
+<hr />
+
+<h3 style="margin: 0 0 1em 0;">Item Details</h3>
+
+<table class="table-tabular" style="margin: 0 0 1.5em 0;">
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th style="width: 150px;">SKU</th>
+      <th>Item</th>
+      <th class="borders">Fullfilled by</th>
+    </tr>
+  </thead>
+  <tbody>
+{% assign npexpo = "" %}
+{% assign tssale = "" %}
+{% assign other = "" %}
+    {% assign line_items_sorted = line_items | sort: "sku" %}
+    {% for line_item in line_items_sorted %}
+      {% capture line_item_html %} 
+      <tr>
+        <td>{{ line_item.quantity }} x</td>
+        <td>{{ line_item.sku }} </td>        
+        <td><b>{{ line_item.product.title }}</b><br />{{ line_item.variant.title }}</td>
+        <td class="borders">        </td>
+      </tr>
+      {% endcapture %}
+      {% if line_item.product.tags contains "Pick-Up: Native Plant Distribution June 5" %}
+          {% assign npexpo = npexpo | append: line_item_html %}
+      {% elsif line_item.product.tags contains "Pick-Up: Tree &amp; Shrub Distribution April 23-24" %}
+          {% assign tssale = tssale | append: line_item_html %}
+      {% else %}
+          {% assign other = other | append: line_item_html %}
+      {% endif %}
+    {% endfor %}
+        {% if npexpo != "" %}
+    <tr class="event-header"><td colspan="4" class="h2 pickup">Native Plant Expo - June 5th</td></tr>
+      {{ npexpo }}
+    {% endif %}
+    {% if tssale != "" %}
+    <tr class="event-header"><td colspan="4" class="h2 pickup">Tree & Shrub Sale - April 23rd-24th</td></tr>
+      {{ tssale }}
+    {% endif %}
+    {% if other != "" %}
+    <tr class="event-header"><td colspan="4" class="h2 pickup">Monthly pick-ups at WCCD Office</td></tr>
+      {{ other }}
+    {% endif %}
+
+  </tbody>
+</table>
+
+<!--
+{% if transactions.size > 1 %}
+  <h3 style="margin: 0 0 1em 0;">Transaction Details</h3>
+  <table class="table-tabular" style="margin: 0 0 1.5em 0;">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Kind</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for transaction in transactions %}
+        <tr>
+          <td>{{ transaction.gateway | payment_method }}</td>
+          <td>{{ transaction.amount | money }}</td>
+          <td>{{ transaction.kind }}</td>
+          <td>{{ transaction.status }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+-->
+
+<h3 style="margin: 0 0 1em 0;">Payment Details</h3>
+
+<table class="table-tabular" style="margin: 0 0 1.5em 0;">
+  <tr>
+    <td>Subtotal price:</td>
+    <td>{{ subtotal_price | money }}</td>
+  </tr>
+  {% for discount in discounts %}
+  <tr>
+    <td>Includes discount "{{ discount.code }}"</td>
+    <td>{{ discount.savings | money }}</td>
+  </tr>
+  {% endfor %}
+  <tr>
+    <td>Total tax:</td>
+    <td>{{ tax_price | money }}</td>
+  </tr>
+  {% if shipping_address %}
+    <!-- tr>
+      <td>Shipping:</td>
+      <td>{{ shipping_price | money }}</td>
+    </tr -->
+  {% endif %}
+  <tr>
+    <td><strong>Total price:</strong></td>
+    <td><strong>{{ total_price | money }}</strong></td>
+  </tr>
+  {% if total_paid != total_price %}
+    <tr>
+      <td><strong>Total paid:</strong></td>
+      <td><strong>{{ total_paid | money }}</strong></td>
+    </tr>
+    <!-- tr>
+      <td><strong>Outstanding Amount:</strong></td>
+      <td><strong>{{ total_price | minus: total_paid | money }}</strong></td>
+    </tr -->
+  {% endif %}
+</table>
+
+{% if note %}
+  <h3 style="margin: 0 0 1em 0;">Note</h3>
+  <p>{{ note }}</p>
+{% endif %}
+
+
+  <h3 style="margin: 0 0 1em 0;">Notes</h3>
+
+  <div style="margin: 0 0 1em 0; padding: 1em; height: 100px; border: 1px solid black;">
+
+  </div>
+
+<div style="text-align:center;">For questions or concerns: Contact Doug Reith <br /> 734-302-8713 doug@WashtenawCD.org</div>
+
+<style type="text/css">
+.borders { 
+  border: 1px solid black !important;
+}
+.event-header {
+  padding-top: 10px;
+  background-color: lightgrey;
+}
+</style>
