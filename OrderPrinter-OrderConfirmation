@@ -42,11 +42,8 @@
     {{ shipping_address.zip | upcase }}<br/>
     {{ shipping_address.country }}
 </div>
-
 <hr />
-
 <h3 style="margin: 0 0 1em 0;">Item Details</h3>
-
 <table class="table-tabular" style="margin: 0 0 1.5em 0;">
   <thead>
     <tr>
@@ -83,15 +80,15 @@
       {% endif %}
     {% endfor %}
         {% if npexpo != "" %}
-    <tr class="event-header"><td colspan="4" class="h2 pickup">Native Plant Expo - June 5th</td></tr>
+    <tr class="event-header"><td colspan="3" class="h2 pickup">Native Plant Expo - June 5th</td></tr>
       {{ npexpo }}
     {% endif %}
     {% if tssale != "" %}
-    <tr class="event-header"><td colspan="4" class="h2 pickup">Tree & Shrub Sale - April 23rd-24th</td></tr>
+    <tr class="event-header"><td colspan="3" class="h2 pickup">Tree & Shrub Sale - April 23rd-24th</td></tr>
       {{ tssale }}
     {% endif %}
     {% if other != "" %}
-    <tr class="event-header"><td colspan="4" class="h2 pickup">Monthly pick-ups at WCCD Office / Donations</td></tr>
+    <tr class="event-header"><td colspan="3" class="h2 pickup">Monthly pick-ups at WCCD Office / Donations</td></tr>
       {{ other }}
     {% endif %}
 
