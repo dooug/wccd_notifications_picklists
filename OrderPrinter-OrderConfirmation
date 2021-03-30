@@ -1,6 +1,6 @@
-<div style="width: 25%; margin: 0 0 1.5em 0; padding: 0 1em 1em; border: 1px solid black;">
+<div style="width: 22%; margin: 0 0 1.5em 0; padding: 1em; border: 1px solid black;">
 
-  <strong >{{ shop_name }}</strong><br /><br />
+  <strong >{{ shop_name }}</strong><br />
   {{ shop.address }}<br/>
   {{ shop.city }} {{ shop.province_code }} {{ shop.zip | upcase }}<br/>
   {{ shop.country }}
@@ -25,6 +25,52 @@
 <p style="page-break-after: always;">&nbsp;</p>
 <!-- end of mailer address page -->
 
+<!-- PICK UP DETAILS PAGE --> 
+<h2>Pick up your Spring Tree &amp; Shrub Order!</h2>
+Friday, April 23rd: 1 pm - 6 pm
+Saturday April 24th: 9 am - 10:30 am 
+Washtenaw Farm Council Grounds
+5055 Ann Arbor-Saline Rd
+Ann Arbor, MI 48103
+
+All orders must be picked up within these times.
+If you are unavailable please send someone in your place with your information (name, order number) to pick up your order.
+
+Orders that aren't picked up will be donated. 
+
+<h2>COVID-19 Safety &amp; Protocols</h2>
+For the safety of all, the distribution will be organized to avoid customers from leaving their cars, except to load their materials.
+Volunteers can help load your order into your trunk to provide an entirely contactless pick-up.
+
+Because of this, there will be no Choosing your items. ALL ORDERS WILL BE PRE-PACKED. 
+
+<h2>Extra Trees & Shrubs sale - April 24 10:30am</h2>
+No walk-ups. Must be on list!
+
+We sometimes have extra trees at the end of the April 23/24th distribution. There will be a call list you can sign onto in order to get in line to purchase trees at 10:30am on Saturday April 24th. To get on the list:
+
+<ol type="1">
+<li>Sign up in person during the distribution event on Friday or Saturday.
+</li><li>You will need to provide your name and a cell phone number.
+</li><li>For social distance safety, we will ask people to stay in the parking lot until we call you. We will call from the list in the order that people signed up.
+</li><li>You must be present at 10:30am on Saturday. When called come to the entrance and wait in a short socially distanced line for your turn to select from what's left. </li></ol>
+We make no guarantees of which species or quantities will be available. We will accept payment via cash, credit card or check. Check or cash is preferred. 
+
+<h2>Fall Tree &amp; Shrub sale</h2>
+No date is set yet, it will be early October. 
+We will make every effort to offer many of the species that sold out quickly this spring, however the species selection will depend on supplier availability. 
+We cannot carry over unmet orders to the fall given the selection might change. 
+Please follow WashtenawCD on Facebook or subscribe to our monthly e-newsletter for updates.
+http://www.washtenawcd.org
+
+
+
+
+<p style="page-break-after: always;">&nbsp;</p>
+<!-- end of PICK UP page -->
+
+
+<!-- ORDER CONFIRMATION PAGE --> 
 <p style="float: right; text-align: right; margin: 0;">
   {{ "now" | date: "%m/%d/%y" }}<br />
   Order: <span style="font-size:35px;">{{ order_name }}</span><br />
@@ -62,7 +108,7 @@
       <tr>
         <td>{{ line_item.quantity }} x</td>
         <td><b>{{ line_item.product.title }}</b><br />{{ line_item.variant.title }}</td>
-             {{ show_line_item_taxes }}
+
         <td>
           {% if line_item.original_price != line_item.price %}
             <s>{{ line_item.original_price | money }}</s>
@@ -172,13 +218,13 @@
 <!-- end of order summary page -->
 
 {% for line_item in line_items %}
-  {% if line_item.name contains "Donation to Grant Fund" %}
+  {% if line_item.name contains "Donation" %}
 <h2>Thank you for your donation to the School &amp; Community Habitat Grant!</h2>
+
+<p>The Directors and Staff of the Washtenaw County Conservation District appreciate your support of our efforts to further conservation through the School & Community Habitat Grant.</p>
 <p>The Washtenaw County Conservation District (WCCD) School and Community Habitat Grant is designed to assist schools and communities with accessing plants and establishing wildlife habitat. Grants will be awarded in the form of tree, shrub and native plant material through the WCCD distributions. Grant fund availability is dependent on donations made to the WCCD for this purpose and grant selections will be made based on the amount donated.</p>
 
-<p>All donations are tax deductible.</p>
-
-<table class="table-tabular" style="margin: 0 20px 1.5em;">
+<table class="table-tabular" style="width: 90%; margin: 0 20px 1.5em;">
 <tr>
 <td>Organization Name and Address:</td>
 <td>
@@ -220,6 +266,12 @@
 <td>  {{ line_item.line_price | money }} <br />
 </td>
 </tr>
+<tr>
+<td colspan="2">
+<p>Your donation is tax deductible under Section 170(c)(1) of the Internal Revenue Code.
+</p>
+<p>No goods or services were given to the donor for this contribution.<br /></p>
+</td></tr>
 </table>
 
 <p>Again, thank you and stay tuned to hear about the grant awardees' projects! Please reach out with any questions.<br />
