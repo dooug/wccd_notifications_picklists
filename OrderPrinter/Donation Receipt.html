@@ -1,0 +1,97 @@
+<div style="float:left; margin: 20px; width: 22%; padding: 1em; border: 1px solid black;">
+<div style="width: 200px;"> <img src="https://cdn.shopify.com/s/files/1/0260/2604/9613/files/wccd_360x.png?v=1606493635" height="80px" style="float: left;">
+  </div>
+  {{ shop.address }}<br/>
+  {{ shop.city }} {{ shop.province_code }} {{ shop.zip | upcase }}<br/>
+  {{ shop.country }}
+</div>
+</div>
+
+
+<h2>DONATION RECEIPT</h2>
+
+
+{% for line_item in line_items %}
+  {% if line_item.name contains "Donat" %}
+<h2>Thank you for donating to the 2021 School &amp; Community Habitat Grant!</h2>
+
+<p>The Directors and Staff of the Washtenaw County Conservation District appreciate your support of our efforts to further conservation through the School & Community Habitat Grant.</p>
+<p>The Washtenaw County Conservation District (WCCD) School and Community Habitat Grant is designed to assist schools and communities with accessing plants and establishing wildlife habitat. Grants will be awarded in the form of tree, shrub and native plant material through the WCCD distributions. Grant fund availability is dependent on donations made to the WCCD for this purpose and grant selections will be made based on the amount donated.</p>
+
+<table class="table-tabular" style="width: 90%; margin: 0 20px 1.5em;">
+<tr>
+<td>Organization Name and Address:</td>
+<td>
+  <strong >{{ shop_name }}</strong><br />
+  {{ shop.address }}<br/>
+  {{ shop.city }} {{ shop.province_code }} {{ shop.zip | upcase }}<br/>
+  {{ shop.country }}
+</td>
+</tr>
+<tr>
+<td>Donor Name and Address:</td>
+<td>
+  {{ billing_address.last_name }}, {{ billing_address.first_name }}<br />
+    {% if billing_address.company %}
+      {{ billing_address.company }}<br/>
+    {% endif %}
+    {{ billing_address.street }}<br/>
+    {{ billing_address.city }}
+    {{ billing_address.province_code }}
+    {{ billing_address.zip | upcase }}<br/>
+    {{ billing_address.country }}
+</div>
+</td>
+</tr>
+<tr>
+<td>Order Number</td>
+<td>{{ order_name }}</td>
+</tr>
+<tr>
+<td>Date Received Donation:</td>
+<td>{{ created_at | date: "%Y-%m-%d %H:%M"  }}</td>
+</tr>
+<tr>
+<td>Date Receipt Issued:</td>
+<td>{{ "now" | date: "%Y-%m-%d %H:%M" }}</td>
+</tr>
+<tr>
+<td>Total Donation:</td>
+<td>  {{ line_item.line_price | money }} <br />
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<p>Your donation is tax deductible under Section 170(c)(1) of the Internal Revenue Code.
+</p>
+<p>No goods or services were given to the donor for this contribution.<br /></p>
+</td></tr>
+</table>
+
+<p>Again, thank you and stay tuned to hear about the grant awardees' projects! Please reach out with any questions.<br />
+<br />
+Sincerely,<br />
+Doug Reith<br />
+<em>Resource Coordinator</em><br />
+Washtenaw County Conservation District<br />
+(734) 302-8713<br />
+doug@washtenawcd.org
+</p>
+
+  {% endif %}
+  
+{% endfor %}
+
+
+<style type="text/css">
+.borders { 
+  border: 1px solid black !important;
+}
+.event-header {
+  padding-top: 10px;
+  background-color: lightgrey;
+}
+.pickup {
+  text-align: center !important;
+}
+</style>
