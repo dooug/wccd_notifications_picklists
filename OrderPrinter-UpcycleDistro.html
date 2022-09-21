@@ -1,0 +1,238 @@
+<p style="float: right; text-align: right; margin: 10px 0;">
+  {{ "now" | date: "%m/%d/%y" }}<br />
+  Order: <span style="font-size:40x;">{{ order_name }}<br/ >	
+Status: {{ financial_status }}</span>
+</p>
+
+<div style="float: left; margin: 0 0 1.5em 0; width: 75%;" >
+  <strong style="font-size: 75px;">{{ shipping_address.last_name }}, {{ shipping_address.first_name }}</strong><br /><br />
+<!--
+    {% if shipping_address.company %}
+      {{ shipping_address.company }}<br/>
+    {% endif %}
+    {{ shipping_address.street }}<br/>
+    {{ shipping_address.city }}
+    {{ shipping_address.province_code }}
+    {{ shipping_address.zip | upcase }}<br/>
+    {{ shipping_address.country }}<br />
+    -->
+    {{ shipping_address.phone }} <br />
+    {% if customer.phone %} {{ customer.phone }} <br /> {% endif %}
+	{{ email }}
+</div>
+
+<table class="table-tabular" style="margin: 0 0 1.5em 0;">
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <!-- th style="width: 150px;">SKU</th -->
+      <th>Item</th>
+      <th class="borders">Fullfilled</th>
+    </tr>
+  </thead>
+  <tbody>
+{% assign npexpo = "" %}
+{% assign tssale = "" %}
+{% assign other = "" %}
+    {% assign line_items_sorted = line_items | sort: "sku" %}
+    {% for line_item in line_items_sorted %}
+      {% capture line_item_html %} 
+      <tr>
+        <td><span style="font-size:18px; font-weight:bold;">{{ line_item.quantity }}</span> x</td>
+        <!-- td>{{ line_item.sku }} </td -->        
+        <td><b>{{ line_item.product.title }}</b><br />{{ line_item.variant.title }}</td>
+        <td class="borders">        </td>
+      </tr>
+
+      {% endcapture %}
+      {% if line_item.product.tags contains "Pick-Up: 2022 Native Plant Expo &amp; Marketplace - June 4th" %}
+          {% assign npexpo = npexpo | append: line_item_html %}
+      {% elsif line_item.product.tags contains "Pick-Up: 2022 Tree &amp; Shrub Distribution - April 22-23" %}
+          {% assign tssale = tssale | append: line_item_html %}
+      {% else %}
+          {% assign other = other | append: line_item_html %}
+      {% endif %}
+    {% endfor %}
+    
+          {{ other }}
+    <!--
+        {% if other != "" %}
+    <tr class="event-header"><td colspan="4" class="h2 pickup">Distribution at WCCD Office</td></tr>
+
+    {% endif %}
+        {% if npexpo != "" %}
+    <tr class="event-header"><td colspan="4" class="h2 pickup">Native Plant Expo & Marketplace - June 4th</td></tr>
+      {{ npexpo }}
+    {% endif %}
+    {% if tssale != "" %}
+    <tr class="event-header"><td colspan="4" class="h2 pickup">Spring Tree & Shrub Distribution - April 22nd-23rd</td></tr>
+      {{ tssale }}
+    {% endif %}
+    -->
+
+
+  </tbody>
+</table>
+
+<!--
+{% if transactions.size > 1 %}
+  <h3 style="margin: 0 0 1em 0;">Transaction Details</h3>
+  <table class="table-tabular" style="margin: 0 0 1.5em 0;">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Kind</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for transaction in transactions %}
+        <tr>
+          <td>{{ transaction.gateway | payment_method }}</td>
+          <td>{{ transaction.amount | money }}</td>
+          <td>{{ transaction.kind }}</td>
+          <td>{{ transaction.status }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+-->
+
+<h4 style="margin: 0 0 1em 0;">Payment Details</h4>
+
+<table class="table-tabular" style="margin: 0 0 1.5em 0;">
+  <tr>
+    <td>Subtotal price:</td>
+    <td>{{ subtotal_price | money }}</td>
+  </tr>
+  {% for discount in discounts %}
+  <tr>
+    <td>Includes discount "{{ discount.code }}"</td>
+    <td>{{ discount.savings | money }}</td>
+  </tr>
+  {% endfor %}
+  <tr>
+    <td>Total tax:</td>
+    <td>{{ tax_price | money }}</td>
+  </tr>
+  {% if shipping_address %}
+    <!-- tr>
+      <td>Shipping:</td>
+      <td>{{ shipping_price | money }}</td>
+    </tr -->
+  {% endif %}
+  <tr>
+    <td><strong>Total price:</strong></td>
+    <td><strong>{{ total_price | money }}</strong></td>
+  </tr>
+  {% if total_paid != total_price %}
+    <tr>
+      <td><strong>Total paid:</strong></td>
+      <td><strong>{{ total_paid | money }}</strong></td>
+    </tr>
+    <!-- tr>
+      <td><strong>Outstanding Amount:</strong></td>
+      <td><strong>{{ total_price | minus: total_paid | money }}</strong></td>
+    </tr -->
+  {% endif %}
+</table>
+
+{% if note %}
+  <h3 style="margin: 0 0 1em 0;">Note</h3>
+  <p>{{ note }}</p>
+{% endif %}
+
+<img src="https://cdn.shopify.com/s/files/1/0260/2604/9613/files/wccd_360x.png?v=1606493635" height="80px" style="float: left">
+
+<div style="text-align:center;">For instructions on installation and more details on rain barrels or composters, see our website: https://www.washtenawcd.org/rain-barrels<br /> 
+For questions or concerns: Contact Doug Reith <br /> 734-302-8713 doug@WashtenawCD.org</div>
+
+
+<p style="page-break-after: always;">&nbsp;</p>
+<!-- end of order summary page -->
+
+<!-- DONATION RECEIPTS -->
+{% for line_item in line_items %}
+  {% if line_item.name contains "Donation" %}
+<h2>Thank you for your donation to the School &amp; Community Habitat Grant!</h2>
+
+<p>The Directors and Staff of the Washtenaw County Conservation District appreciate your support of our efforts to further conservation through the School & Community Habitat Grant.</p>
+<p>The Washtenaw County Conservation District (WCCD) School and Community Habitat Grant is designed to assist schools and communities with accessing plants and establishing wildlife habitat. Grants will be awarded in the form of tree, shrub and native plant material through the WCCD distributions. Grant fund availability is dependent on donations made to the WCCD for this purpose and grant selections will be made based on the amount donated.</p>
+
+<table class="table-tabular" style="width: 90%; margin: 0 20px 1.5em;">
+<tr>
+<td>Organization Name and Address:</td>
+<td>
+  <strong >{{ shop_name }}</strong><br />
+  {{ shop.address }}<br/>
+  {{ shop.city }} {{ shop.province_code }} {{ shop.zip | upcase }}<br/>
+  {{ shop.country }}
+</td>
+</tr>
+<tr>
+<td>Donor Name and Address:</td>
+<td>
+  {{ shipping_address.last_name }}, {{ shipping_address.first_name }}<br />
+    {% if shipping_address.company %}
+      {{ shipping_address.company }}<br/>
+    {% endif %}
+    {{ shipping_address.street }}<br/>
+    {{ shipping_address.city }}
+    {{ shipping_address.province_code }}
+    {{ shipping_address.zip | upcase }}<br/>
+    {{ shipping_address.country }}
+</div>
+</td>
+</tr>
+<tr>
+<td>Order Number</td>
+<td>{{ order_name }}</td>
+</tr>
+<tr>
+<td>Date Received Donation:</td>
+<td>{{ created_at | date: "%Y-%m-%d %H:%M"  }}</td>
+</tr>
+<tr>
+<td>Date Receipt Issued:</td>
+<td>{{ "now" | date: "%Y-%m-%d %H:%M" }}</td>
+</tr>
+<tr>
+<td>Total Donation:</td>
+<td>  {{ line_item.line_price | money }} <br />
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<p>Your donation is tax deductible under Section 170(c)(1) of the Internal Revenue Code.
+</p>
+<p>No goods or services were given to the donor for this contribution.<br /></p>
+</td></tr>
+</table>
+
+<p>Again, thank you and stay tuned to hear about the grant awardees' projects! Please reach out with any questions.<br />
+<br />
+Sincerely,<br />
+Doug Reith<br />
+<em>Resource Coordinator</em><br />
+Washtenaw County Conservation District<br />
+(734) 302-8713<br />
+doug@washtenawcd.org
+</p>
+
+  {% endif %}
+  
+{% endfor %}
+
+
+
+<style type="text/css">
+.borders { 
+  border: 1px solid black !important;
+}
+.event-header {
+  padding-top: 10px;
+  background-color: lightgrey;
+}
+</style>
