@@ -6,16 +6,7 @@ Status: {{ financial_status }}</span>
 
 <div style="float: left; margin: 0 0 1.5em 0; width: 75%;" >
   <strong style="font-size: 75px;">{{ shipping_address.last_name }}, {{ shipping_address.first_name }}</strong><br /><br />
-<!--
-    {% if shipping_address.company %}
-      {{ shipping_address.company }}<br/>
-    {% endif %}
-    {{ shipping_address.street }}<br/>
-    {{ shipping_address.city }}
-    {{ shipping_address.province_code }}
-    {{ shipping_address.zip | upcase }}<br/>
-    {{ shipping_address.country }}<br />
-    -->
+
     {{ shipping_address.phone }} <br />
     {% if customer.phone %} {{ customer.phone }} <br /> {% endif %}
 	{{ email }}
@@ -25,50 +16,32 @@ Status: {{ financial_status }}</span>
   <thead>
     <tr>
       <th>Quantity</th>
-      <!-- th style="width: 150px;">SKU</th -->
       <th>Item</th>
       <th class="borders">Fullfilled</th>
     </tr>
   </thead>
   <tbody>
-{% assign npexpo = "" %}
-{% assign tssale = "" %}
+{% assign upcycle = "" %}
 {% assign other = "" %}
     {% assign line_items_sorted = line_items | sort: "sku" %}
     {% for line_item in line_items_sorted %}
       {% capture line_item_html %} 
       <tr>
-        <td><span style="font-size:18px; font-weight:bold;">{{ line_item.quantity }}</span> x</td>
-        <!-- td>{{ line_item.sku }} </td -->        
+        <td><span style="font-size:18px; font-weight:bold;">{{ line_item.quantity }}</span> x</td>  
         <td><b>{{ line_item.product.title }}</b><br />{{ line_item.variant.title }}</td>
         <td class="borders">        </td>
       </tr>
-
       {% endcapture %}
-      {% if line_item.product.tags contains "Pick-Up: 2022 Native Plant Expo &amp; Marketplace - June 4th" %}
-          {% assign npexpo = npexpo | append: line_item_html %}
-      {% elsif line_item.product.tags contains "Pick-Up: 2022 Tree &amp; Shrub Distribution - April 22-23" %}
-          {% assign tssale = tssale | append: line_item_html %}
+
+      {% if line_item.product.vendor contains "UpCycle Products" %}
+          {% assign upcycle = upcycle | append: line_item_html %}
       {% else %}
           {% assign other = other | append: line_item_html %}
       {% endif %}
     {% endfor %}
     
-          {{ other }}
-    <!--
-        {% if other != "" %}
-    <tr class="event-header"><td colspan="4" class="h2 pickup">Distribution at WCCD Office</td></tr>
-
-    {% endif %}
-        {% if npexpo != "" %}
-    <tr class="event-header"><td colspan="4" class="h2 pickup">Native Plant Expo & Marketplace - June 4th</td></tr>
-      {{ npexpo }}
-    {% endif %}
-    {% if tssale != "" %}
-    <tr class="event-header"><td colspan="4" class="h2 pickup">Spring Tree & Shrub Distribution - April 22nd-23rd</td></tr>
-      {{ tssale }}
-    {% endif %}
-    -->
+    <!-- Only Show Rain Barrel items --> 	  
+    {{ upcycle }}
 
 
   </tbody>
