@@ -42,6 +42,9 @@ Packed by:<br /><br />
 {% assign wildflower = "" %}
 {% assign wildtype = "" %}
 {% assign nrs = "" %}
+{% assign plantingaid = "" %}
+{% assign upcycle = "" %}
+{% assign alpha = "" %}
 {% assign other = "" %}
 {% assign totalqty = "0" %}
 {% assign totalflats = "0" %}
@@ -77,8 +80,8 @@ Packed by:<br /><br />
       
       <!-- Check by Vendor, Type can be shared across vendors...
       could be updated for vendor DBN... -->
-      {% if line_item.product.vendor contains "Native Restoration Solutions" %}
-          {% assign nrs = nrs | append: line_item_html %}
+      {% if line_item.product.vendor contains "Alpha" %}
+          {% assign alpha = alpha | append: line_item_html %}
       {% elsif line_item.product.vendor contains "Wildtype" %}
           {% assign wildtype = wildtype | append: line_item_html %}
       {% elsif line_item.product.type contains "Grasses" %}
@@ -87,6 +90,10 @@ Packed by:<br /><br />
           {% assign gardenkit = gardenkit | append: line_item_html %}
       {% elsif line_item.product.type contains "Wildflower" %}
           {% assign wildflower = wildflower | append: line_item_html %}
+      {% elsif line_item.product.type contains "Planting" %}
+          {% assign plantingaid = plantingaid | append: line_item_html %}
+      {% elsif line_item.product.vendor contains "UpCycle" %}
+          {% assign upcycle = upcycle | append: line_item_html %}
       {% else %}
           {% assign other = other | append: line_item_html %}
           <!-- reduce others in total -->
@@ -94,6 +101,10 @@ Packed by:<br /><br />
       {% endif %}
     {% endfor %}
 
+     {% if plantingaid != "" %}
+       <tr><td style="background:lightgray;" colspan="4">Planting Aids</td></tr>
+      {{ plantingaid }}
+    {% endif %}
     {% if grass != "" %}
       <tr><td style="background:lightgray;" colspan="4">DesignsByNature - <strong>Grasses</strong> - pots/flats </td></tr>
       {{ grass }}
@@ -106,13 +117,17 @@ Packed by:<br /><br />
       <tr><td style="background:lightgray;" colspan="4">DesignsByNature - <strong>Wildflowers</strong> - pots/flats</td></tr>
       {{ wildflower }}
     {% endif %}
-    {% if wildtype != "" %}
-      <tr><td style="background:lightgray;" colspan="4">WildType - <strong>Native plants</strong> </td></tr>
-      {{ wildtype }}
+    {% if alpha != "" %}
+      <tr><td style="background:lightgray;" colspan="4">Conifers </td></tr>
+      {{ alpha }}
     {% endif %}
-    {% if nrs != "" %}
-              <tr><td style="background:lightgray;" colspan="4">NativeRestorationSolutions - <strong>Native plants</strong> - pots </td></tr>
-      {{ nrs }}
+    {% if upcycle != "" %}
+      <tr><td style="background:lightgray;" colspan="4">Rain Barrels & Supplies </td></tr>
+      {{ upcycle }}
+    {% endif %}
+    {% if other != "" %}
+              <tr><td style="background:lightgray;" colspan="4">Other (nothing to pack here)</td></tr>
+      {{ other }}
     {% endif %}
 
 
