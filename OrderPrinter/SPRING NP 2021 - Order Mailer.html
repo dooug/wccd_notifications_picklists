@@ -1,0 +1,301 @@
+<div style="width: 22%; margin: 0 0 1.5em 0; padding: 1em; border: 1px solid black;">
+
+  <strong >{{ shop_name }}</strong><br />
+  {{ shop.address }}<br/>
+  {{ shop.city }} {{ shop.province_code }} {{ shop.zip | upcase }}<br/>
+  {{ shop.country }}
+</div>
+</div>
+<div style="font-size: 20px; float: left; width:50%; margin: 0 25% 1.5em 25%; padding: 1.5em; border: 1px solid black;">
+  <h2 style="margin: 0 0 20px 0;">{{ shipping_address.last_name }}, {{ shipping_address.first_name }}</h2>
+    {% if shipping_address.company %}
+      {{ shipping_address.company }}<br/>
+    {% endif %}
+    {{ shipping_address.street }}<br/>
+    {{ shipping_address.city }}
+    {{ shipping_address.province_code }}
+    {{ shipping_address.zip | upcase }}<br/>
+    {{ shipping_address.country }}
+</div>
+
+
+ <div style="width: 200px; margin: 600px auto 100px;"> <img src="https://cdn.shopify.com/s/files/1/0260/2604/9613/files/wccd_360x.png?v=1606493635" height="80px" style="float: left;   transform: scale(-1, -1); ">
+  </div>
+
+<p style="page-break-after: always;">&nbsp;</p>
+<!-- end of mailer address page -->
+
+<!-- PICK UP DETAILS PAGE --> 
+<h2>Pick up your Native Plant pre-sale Order!</h2>
+<h4 style="text-align:center;">Saturday, June 5th, 9am - 1pm<br /> 
+Washtenaw Farm Council Grounds<br />
+5055 Ann Arbor-Saline Rd<br />
+Ann Arbor, MI 48103</h4>
+
+1. Please drive in through the open gate south of the Farm Bureau building. The main gate entrance will be exit only, do not enter in those gates (#1 and #2). <br />
+2. Follow instructions of traffic direction volunteers as needed to proceed to the Welcome Tent, you'll be directed from there.  <br />
+3. Please pick up your pre-sale items first before going to the Expo. If it is a hot day, be sure any plants in your car remain cool and protected. <br />
+
+<h4>What to bring:</h4>
+<p>
+<ul>
+<li>The full Name on your order or the order Number, if you don't have your order number, no worries we can look it up when you arrive.
+</li><li>Water! If there are lines, we want to be sure everyone is keeping hydrated and comfortable. Bathrooms are available in the building south of the Sheds. 
+</li><li>Boxes, trays or containers for your plants as necessary for your pre-sale items, or purchases at the Expo.
+</li></ul>
+
+<h4>Can't make it on Saturday, June 5th?</h4>
+
+<p>Saturday is the ONLY day we will have your plant orders available. Here's some options if you can't make it:</p>
+
+<ol><li>Preferred: Send someone in your place to pick up your order on Saturday.
+</li><li>Volunteer! You can sign up to volunteer on Friday June 4th to take your order home early.
+</li><li>Request a refund before May 28th. You will receive credit for future WCCD sales.
+</li><li>Donate the amount to the School & Community Habitat grant. Your plants will be sold at the Expo, and your payment will go to local habitat projects. 
+</li></ol>
+
+<h4>COVID-19 Safety &amp; Pick-up Protocols</h4>
+
+<p><strong>All orders will be pre-packed.</strong> The distribution will be organized for customers to drive-through and stay in their vehicles. Volunteers can load your order into your trunk to provide an entirely contactless pick-up.</strong> Masks and social distancing are still required at the Expo. 
+ </p>
+
+<h3>Native Plant Expo - Attend after picking up your pre-sale order!</h3>
+<p>The Native Plant Expo & Marketplace will be happening during the distribution. The Expo is the place to shop for native flowers, trees and shrubs that you may have missed in the pre-sale and even more nurseries! You'll also be able learn about local conservation services, garden clubs, land conservancies, and more.</p>
+
+<p>Pre-sale customers can attend the Expo after they've went through the pre-sale distribution line.
+No ticket required for pre-sale customers. </p>
+
+<p style="text-align:center;">
+Please follow WashtenawCD on Facebook or subscribe to our monthly e-newsletter for updates.
+<br />
+Your purchases support conservation work by the Washtenaw County Conservation District.<br />
+On behalf of the staff and board, thank you!<br />
+http://www.washtenawcd.org <br />
+For questions, call (734) 302-8713 or email doug@washtenawcd.org
+</p>
+<div style="page-break-after: always;"></div>
+<!-- end of PICK UP page -->
+
+<!-- ORDER CONFIRMATION PAGE --> 
+<div>
+<p style="float: right; text-align: right; margin: 0;">
+  {{ "now" | date: "%m/%d/%y" }}<br />
+  Order: <span style="font-size:35px;">{{ order_name }}</span><br />
+  Order Payment Status: {{ financial_status }}
+</p>
+
+<div style="float: left; margin: 0 0 1.5em 0;" >
+  <strong style="font-size: 2em;">{{ shipping_address.last_name }}, {{ shipping_address.first_name }}</strong><br /><br />
+    {% if shipping_address.company %}
+      {{ shipping_address.company }}<br/>
+    {% endif %}
+    {{ shipping_address.street }}<br/>
+    {{ shipping_address.city }}
+    {{ shipping_address.province_code }}
+    {{ shipping_address.zip | upcase }}<br/>
+    {{ shipping_address.country }}
+</div>
+<table class="table-tabular" style="margin: 0 0 1.5em 0;">
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Item</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+{% assign npexpo = "" %}
+{% assign tssale = "" %}
+{% assign other = "" %}
+    {% assign line_items_sorted = line_items | sort: "sku" %}
+    {% for line_item in line_items_sorted %}
+      {% capture line_item_html %} 
+      <tr>
+        <td>{{ line_item.quantity }} x</td>
+        <td><b>{{ line_item.product.title }}</b><br />{{ line_item.variant.title }}</td>
+
+        <td>
+          {% if line_item.original_price != line_item.price %}
+            <s>{{ line_item.original_price | money }}</s>
+          {% endif %}
+          {{ line_item.price | money }}
+          </td>
+      </tr>
+      {% endcapture %}
+      {% if line_item.product.tags contains "Pick-Up: Native Plant Distribution June 5" %}
+          {% assign npexpo = npexpo | append: line_item_html %}
+      {% endif %}
+    {% endfor %}
+        {% if npexpo != "" %}
+    <tr class="event-header"><td colspan="3" class="h2 pickup">Native Plant Expo - June 5th</td></tr>
+      {{ npexpo }}
+    {% endif %}
+
+  </tbody>
+</table>
+
+{% if transactions.size > 0 %}
+  <h4 style="margin: 0 0 1em 0;">Transaction Details</h4>
+  <table class="table-tabular" style="margin: 0 0 1.5em 0;">
+    <thead>
+      <tr>
+      <th>Date</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Kind</th>
+          <th>Payment Details</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for transaction in transactions %}
+        <tr>
+          <td>{{ transaction.created_at | date: "%a, %b %d, %y" }}</td>
+          <td>{{ transaction.gateway | payment_method }}</td>
+          <td>{{ transaction.amount | money }}</td>
+          <td>{{ transaction.kind }}</td>
+            <td>{{ transaction.payment_details.credit_card_company }} - {{ transaction.payment_details.credit_card_number }}</td>
+          <td>{{ transaction.status }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+<h4 style="margin: 0 0 1em 0;">Payment Details</h4>
+
+<table class="table-tabular" style="margin: 0 0 1.5em 0;">
+  <tr>
+    <td>Subtotal price:</td>
+    <td>{{ subtotal_price | money }}</td>
+  </tr>
+  {% for discount in discounts %}
+  <tr>
+    <td>Includes discount "{{ discount.code }}"</td>
+    <td>{{ discount.savings | money }}</td>
+  </tr>
+  {% endfor %}
+  <tr>
+    <td>Total tax:</td>
+    <td>{{ tax_price | money }}</td>
+  </tr>
+  {% if shipping_address %}
+    <tr>
+      <td>Shipping:</td>
+      <td>{{ shipping_price | money }}</td>
+    </tr>
+  {% endif %}
+  <tr>
+    <td><strong>Total price:</strong></td>
+    <td><strong>{{ total_price | money }}</strong></td>
+  </tr>
+  {% if total_paid != total_price %}
+    <tr>
+      <td><strong>Total paid:</strong></td>
+      <td><strong>{{ total_paid | money }}</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Outstanding Amount:</strong></td>
+      <td><strong>{{ total_price | minus: total_paid | money }}</strong></td>
+    </tr>
+  {% endif %}
+</table>
+
+{% if note %}
+  <h5 style="margin: 0 0 1em 0;">Customer Note / Check info:</h5>
+  <p>{{ note }}</p>
+{% endif %}
+</div>
+{% for line_item in line_items %}
+  {% if line_item.name contains "Donation" %}
+  
+  
+
+<div style="page-break-after: always;">&nbsp;</div>
+<!-- blank last page -->
+
+<h2>Thank you for your donation to the School &amp; Community Habitat Grant!</h2>
+
+<p>The Directors and Staff of the Washtenaw County Conservation District appreciate your support of our efforts to further conservation through the School & Community Habitat Grant.</p>
+<p>The Washtenaw County Conservation District (WCCD) School and Community Habitat Grant is designed to assist schools and communities with accessing plants and establishing wildlife habitat. Grants will be awarded in the form of tree, shrub and native plant material through the WCCD distributions. Grant fund availability is dependent on donations made to the WCCD for this purpose and grant selections will be made based on the amount donated.</p>
+
+<table class="table-tabular" style="width: 90%; margin: 0 20px 1.5em;">
+<tr>
+<td>Organization Name and Address:</td>
+<td>
+  <strong >{{ shop_name }}</strong><br />
+  {{ shop.address }}<br/>
+  {{ shop.city }} {{ shop.province_code }} {{ shop.zip | upcase }}<br/>
+  {{ shop.country }}
+</td>
+</tr>
+<tr>
+<td>Donor Name and Address:</td>
+<td>
+  {{ shipping_address.last_name }}, {{ shipping_address.first_name }}<br />
+    {% if shipping_address.company %}
+      {{ shipping_address.company }}<br/>
+    {% endif %}
+    {{ shipping_address.street }}<br/>
+    {{ shipping_address.city }}
+    {{ shipping_address.province_code }}
+    {{ shipping_address.zip | upcase }}<br/>
+    {{ shipping_address.country }}
+</div>
+</td>
+</tr>
+<tr>
+<td>Order Number</td>
+<td>{{ order_name }}</td>
+</tr>
+<tr>
+<td>Date Received Donation:</td>
+<td>{{ created_at | date: "%Y-%m-%d %H:%M"  }}</td>
+</tr>
+<tr>
+<td>Date Receipt Issued:</td>
+<td>{{ "now" | date: "%Y-%m-%d %H:%M" }}</td>
+</tr>
+<tr>
+<td>Total Donation:</td>
+<td>  {{ line_item.line_price | money }} <br />
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<p>Your donation is tax deductible under Section 170(c)(1) of the Internal Revenue Code.
+</p>
+<p>No goods or services were given to the donor for this contribution.<br /></p>
+</td></tr>
+</table>
+
+<p>Again, thank you and stay tuned to hear about the grant awardees' projects! Please reach out with any questions.<br />
+<br />
+Sincerely,<br />
+Doug Reith<br />
+<em>Resource Coordinator</em><br />
+Washtenaw County Conservation District<br />
+(734) 302-8713<br />
+doug@washtenawcd.org
+</p>
+
+  {% endif %}
+  
+{% endfor %}
+
+<p style="page-break-after: always;">&nbsp;</p>
+<!-- blank last page -->
+<br />
+
+<style type="text/css">
+.borders { 
+  border: 1px solid black !important;
+}
+.event-header {
+  padding-top: 10px;
+  background-color: lightgrey;
+}
+.pickup {
+  text-align: center !important;
+}
+</style>
