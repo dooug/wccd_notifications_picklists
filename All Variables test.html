@@ -1,0 +1,970 @@
+
+  
+  
+
+  
+  <section class="ui-annotated-section-container"><div class="ui-annotated-section"><div class="ui-annotated-section__annotation"><div class="ui-annotated-section__title"><h2 class="ui-heading">Shop details</h2></div></div><div class="ui-annotated-section__content">
+    <div class="variable-reference-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Variable description</th>
+            <th>Variable name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Shop name</td>
+            <td><pre>{{ shop.name }}</pre></td>
+          </tr>
+          <tr>
+            <td>Shop email</td>
+            <td><pre>{{ shop.email }}</pre></td>
+          </tr>
+          <tr>
+            <td>Shop domain</td>
+            <td><pre>{{ shop.domain }}</pre></td>
+          </tr>
+          <tr>
+            <td>Shop owner</td>
+            <td><pre>{{ shop.owner }}</pre></td>
+          </tr>
+          <tr>
+            <td>Shop street address</td>
+            <td><pre>{{ shop.address }}</pre></td>
+          </tr>
+          <tr>
+            <td>Shop street address line 2</td>
+            <td><pre>{{ shop.address2 }}</pre></td>
+          </tr>
+          <tr>
+            <td>Shop city</td>
+            <td><pre>{{ shop.city }}</pre></td>
+          </tr>
+          <tr>
+            <td>Shop province</td>
+            <td><pre>{{ shop.province }}</pre></td>
+          </tr>
+          <tr>
+            <td>Shop province code</td>
+            <td><pre>{{ shop.province_code }}</pre></td>
+          </tr>
+          <tr>
+            <td>Shop postal code / ZIP code</td>
+            <td><pre>{{ shop.zip }}</pre></td>
+          </tr>
+          <tr>
+            <td>Shop country name</td>
+            <td><pre>{{ shop.country }}</pre></td>
+          </tr>
+          <tr>
+            <td>Shop country code</td>
+            <td><pre>{{ shop.country_code }}</pre></td>
+          </tr>
+          <tr>
+            <td>Shop phone number</td>
+            <td><pre>{{ shop.phone }}</pre></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div></div></section>
+
+  
+    <section class="ui-annotated-section-container"><div class="ui-annotated-section"><div class="ui-annotated-section__annotation"><div class="ui-annotated-section__title"><h2 class="ui-heading">Address details</h2></div><div class="ui-annotated-section__description">
+    <p>Address details for the order.</p>
+    <p>You can select which address to use by specifying <i>shipping_address</i>,  <i>billing_address</i>, or <i>customer.default_address</i>.</p>
+</div></div><div class="ui-annotated-section__content">
+    <div class="variable-reference-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Variable description</th>
+            <th>Variable name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>First name</td>
+            <td><pre>{{ shipping_address.first_name }}</pre></td>
+          </tr>
+          <tr>
+            <td>Last name</td>
+            <td><pre>{{ shipping_address.last_name }}</pre></td>
+          </tr>
+          <tr>
+            <td>Name</td>
+            <td><pre>{{ shipping_address.name }}</pre></td>
+          </tr>
+          <tr>
+            <td>Company</td>
+            <td><pre>{{ shipping_address.company }}</pre></td>
+          </tr>
+          <tr>
+            <td>Address 1</td>
+            <td><pre>{{ shipping_address.address1 }}</pre></td>
+          </tr>
+          <tr>
+            <td>Address 2</td>
+            <td><pre>{{ shipping_address.address2 }}</pre></td>
+          </tr>
+          <tr>
+            <td>Street</td>
+            <td><pre>{{ shipping_address.street }}</pre></td>
+          </tr>
+          <tr>
+            <td>City</td>
+            <td><pre>{{ shipping_address.city }}</pre></td>
+          </tr>
+          <tr>
+            <td>Province</td>
+            <td><pre>{{ shipping_address.province }}</pre></td>
+          </tr>
+          <tr>
+            <td>Province code</td>
+            <td><pre>{{ shipping_address.province_code }}</pre></td>
+          </tr>
+          <tr>
+            <td>Postal code / ZIP code</td>
+            <td><pre>{{ shipping_address.zip }}</pre></td>
+          </tr>
+          <tr>
+            <td>Country</td>
+            <td><pre>{{ shipping_address.country }}</pre></td>
+          </tr>
+          <tr>
+            <td>Country code</td>
+            <td><pre>{{ shipping_address.country_code }}</pre></td>
+          </tr>
+          <tr>
+            <td>Phone number</td>
+            <td><pre>{{ shipping_address.phone }}</pre></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div></div></section>
+
+  
+  <section class="ui-annotated-section-container"><div class="ui-annotated-section"><div class="ui-annotated-section__annotation"><div class="ui-annotated-section__title"><h2 class="ui-heading">Customer details</h2></div></div><div class="ui-annotated-section__content">
+    <div class="variable-reference-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Variable description</th>
+            <th>Variable name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Name</td>
+            <td><pre>{{ customer.name }}</pre></td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td><pre>{{ customer.email }}</pre></td>
+          </tr>
+          <tr>
+            <td>Orders count</td>
+            <td><pre>{{ customer.orders_count }}</pre></td>
+          </tr>
+          <tr>
+            <td>Default Address</td>
+            <td><pre>{{ customer.default_address }}</pre></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div></div></section>
+
+  
+  <section class="ui-annotated-section-container"><div class="ui-annotated-section"><div class="ui-annotated-section__annotation"><div class="ui-annotated-section__title"><h2 class="ui-heading">Discount details</h2></div></div><div class="ui-annotated-section__content">
+    <div class="variable-reference-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Variable description</th>
+            <th>Variable name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for discount in discounts %}
+
+          <tr>
+            <td>Code</td>
+            <td><pre>{{ discount.code }} or {{ discount.title }}</pre></td>
+          </tr>
+          <tr>
+            <td>Amount</td>
+            <td><pre>{{ discount.amount | money }}</pre></td>
+          </tr>
+          <tr>
+            <td>Savings</td>
+            <td><pre>{{ discount.savings | money }}</pre></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div></div></section>
+
+  
+  <section class="ui-annotated-section-container"><div class="ui-annotated-section"><div class="ui-annotated-section__annotation"><div class="ui-annotated-section__title"><h2 class="ui-heading">Line item details</h2></div></div><div class="ui-annotated-section__content">
+    <div class="variable-reference-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Variable description</th>
+            <th>Variable name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Line items</td>
+            <td><pre>{% for line_item in line_items %}
+          <tr>
+            <td>Name</td>
+            <td><pre>{{ line_item.name }}</pre></td>
+          </tr>
+          <tr>
+            <td>Title</td>
+            <td><pre>{{ line_item.title }}</pre></td>
+          </tr>
+          <tr>
+            <td>Product title</td>
+            <td><pre>{{ line_item.product_title }}</pre></td>
+          </tr>
+          <tr>
+            <td>Quantity</td>
+            <td><pre>{{ line_item.quantity }}</pre></td>
+          </tr>
+          <tr>
+          </tr><tr>
+            <td>Fulfillable Quantity</td>
+            <td><pre>{{ line_item.fulfillable_quantity }}</pre></td>
+          </tr>
+          <tr>
+            <td>Price</td>
+            <td><pre>{{ line_item.price | money }}</pre></td>
+          </tr>
+          <tr>
+            <td>Line price</td>
+            <td><pre>{{ line_item.line_price | money }}</pre></td>
+          </tr>
+          <tr>
+            <td>Original price</td>
+            <td><pre>{{ line_item.original_price | money }}</pre></td>
+          </tr>
+          <tr>
+            <td>Total Discount</td>
+            <td><pre>{{ line_item.total_discount | money }}</pre></td>
+          </tr>
+          <tr>
+            <td>Weight</td>
+            <td><pre>{{ line_item.weight }} or {{ line_item.grams }}</pre></td>
+          </tr>
+          <tr>
+            <td>Weight with unit</td>
+            <td><pre>{{ line_item.weight | weight_with_unit }}</pre></td>
+          </tr>
+          <tr>
+            <td>SKU</td>
+            <td><pre>{{ line_item.sku }}</pre></td>
+          </tr>
+          <tr>
+            <td>Vendor</td>
+            <td><pre>{{ line_item.vendor }}</pre></td>
+          </tr>
+          <tr>
+            <td>Fulfillment</td>
+            <td><pre>{{ line_item.fulfillment }}</pre></td>
+          </tr>
+          <tr>
+            <td>Product</td>
+            <td><pre>{{ line_item.product }}</pre></td>
+          </tr>
+          <tr>
+            <td>Variant</td>
+            <td><pre>{{ line_item.variant }}</pre></td>
+          </tr>
+          <tr>
+            <td>Image</td>
+            <td><pre>{{ line_item.image }}
+
+{{ line_item.image | img_url: 'thumb' | img_tag }}
+{{ line_item | img_url: 'thumb' | img_tag }}</pre></td>
+          </tr>
+{% endfor %}</pre></td>
+          </tr>
+          <tr>
+            <td>Fulfilled line items</td>
+            <td><pre>{% for line_item in fulfilled_line_items %}
+  {{line_item}}
+{% endfor %}</pre></td>
+          </tr>
+          <tr>
+            <td>Unfulfilled line items</td>
+            <td><pre>{% for line_item in unfulfilled_line_items %}
+  {{line_item}}
+{% endfor %}</pre></td>
+          </tr>
+          <tr>
+            <td>Name</td>
+            <td><pre>{{ line_item.name }}</pre></td>
+          </tr>
+          <tr>
+            <td>Title</td>
+            <td><pre>{{ line_item.title }}</pre></td>
+          </tr>
+          <tr>
+            <td>Product title</td>
+            <td><pre>{{ line_item.product_title }}</pre></td>
+          </tr>
+          <tr>
+            <td>Quantity</td>
+            <td><pre>{{ line_item.quantity }}</pre></td>
+          </tr>
+          <tr>
+          </tr><tr>
+            <td>Fulfillable Quantity</td>
+            <td><pre>{{ line_item.fulfillable_quantity }}</pre></td>
+          </tr>
+          <tr>
+            <td>Price</td>
+            <td><pre>{{ line_item.price | money }}</pre></td>
+          </tr>
+          <tr>
+            <td>Line price</td>
+            <td><pre>{{ line_item.line_price | money }}</pre></td>
+          </tr>
+          <tr>
+            <td>Original price</td>
+            <td><pre>{{ line_item.original_price | money }}</pre></td>
+          </tr>
+          <tr>
+            <td>Total Discount</td>
+            <td><pre>{{ line_item.total_discount | money }}</pre></td>
+          </tr>
+          <tr>
+            <td>Weight</td>
+            <td><pre>{{ line_item.weight }} or {{ line_item.grams }}</pre></td>
+          </tr>
+          <tr>
+            <td>Weight with unit</td>
+            <td><pre>{{ line_item.weight | weight_with_unit }}</pre></td>
+          </tr>
+          <tr>
+            <td>SKU</td>
+            <td><pre>{{ line_item.sku }}</pre></td>
+          </tr>
+          <tr>
+            <td>Vendor</td>
+            <td><pre>{{ line_item.vendor }}</pre></td>
+          </tr>
+          <tr>
+            <td>Fulfillment</td>
+            <td><pre>{{ line_item.fulfillment }}</pre></td>
+          </tr>
+          <tr>
+            <td>Product</td>
+            <td><pre>{{ line_item.product }}</pre></td>
+          </tr>
+          <tr>
+            <td>Variant</td>
+            <td><pre>{{ line_item.variant }}</pre></td>
+          </tr>
+          <tr>
+            <td>Image</td>
+            <td><pre>{{ line_item.image }}
+
+{{ line_item.image | img_url: 'thumb' | img_tag }}
+{{ line_item | img_url: 'thumb' | img_tag }}</pre></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div></div></section>
+
+  
+  <section class="ui-annotated-section-container"><div class="ui-annotated-section"><div class="ui-annotated-section__annotation"><div class="ui-annotated-section__title"><h2 class="ui-heading">Refund details</h2></div></div><div class="ui-annotated-section__content">
+    <div class="variable-reference-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Variable description</th>
+            <th>Variable name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Refunds</td>
+            <td><pre>{% for refund in refunds %}
+  ...
+{% endfor %}</pre></td>
+          </tr>
+          <tr>
+            <td>Note</td>
+            <td><pre>{{ refund.note }}</pre></td>
+          </tr>
+          <tr>
+            <td>Restock</td>
+            <td><pre>{{ refund.restock }}</pre></td>
+          </tr>
+          <tr>
+            <td>Refund transactions</td>
+            <td><pre>{% for refund_transaction in refund.transactions %}
+  ...
+{% endfor %}</pre></td>
+          </tr>
+          <tr>
+          <td>Refund line items</td>
+            <td><pre>{% for refund_line_item in refund.refund_line_items %}
+  ...
+{% endfor %}</pre></td>
+          </tr>
+          <tr>
+            <td>Refund line item quantity</td>
+            <td><pre>{{ refund_line_item.quantity }}</pre></td>
+          </tr>
+          <tr>
+            <td>Refund line item</td>
+            <td><pre>{{ refund_line_item.line_item }}</pre></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div></div></section>
+
+  
+  <section class="ui-annotated-section-container"><div class="ui-annotated-section"><div class="ui-annotated-section__annotation"><div class="ui-annotated-section__title"><h2 class="ui-heading">Transaction details</h2></div></div><div class="ui-annotated-section__content">
+    <div class="variable-reference-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Variable description</th>
+            <th>Variable name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for transaction in transactions %}
+          <tr>
+            <td>Transactions</td>
+            <td><pre>
+</pre></td>
+          </tr>
+          <tr>
+            <td>Amount</td>
+            <td><pre>{{ transaction.amount | money }}</pre></td>
+          </tr>
+          <tr>
+            <td>Authorization</td>
+            <td><pre>{{ transaction.authorization }}</pre></td>
+          </tr>
+          <tr>
+            <td>Date</td>
+            <td><pre>{{ transaction.date }} or {{ transaction.created_at }}</pre></td>
+          </tr>
+          <tr>
+            <td>Gateway</td>
+            <td><pre>{{ transaction.gateway }}</pre></td>
+          </tr>
+          <tr>
+            <td>Payment method <span class="note">(eg: bank transfer, credit card)</span></td>
+            <td><pre>{{ transaction.gateway | payment_method }}</pre></td>
+          </tr>
+          <tr>
+            <td>Kind <span class="note">(eg: authorization, capture, refund)</span></td>
+            <td><pre>{{ transaction.kind }}</pre></td>
+          </tr>
+          <tr>
+            <td>Message</td>
+            <td><pre>{{ transaction.message }}</pre></td>
+          </tr>
+          <tr>
+            <td>Status</td>
+            <td><pre>{{ transaction.status }}</pre></td>
+          </tr>
+{% endfor %}
+            <tr><td>Payment transactions</td>
+            <td><pre>{% for transaction in payment_transactions %}
+  ...
+{% endfor %}</pre></td>
+          </tr>
+            <tr><td>Refund transactions</td>
+            <td><pre>{% for transaction in refund_transactions %}
+{{ transaction | json }}
+{% endfor %}</pre></td>
+          </tr>
+          <tr>
+            <td>Amount</td>
+            <td><pre>{{ transaction.amount | money }}</pre></td>
+          </tr>
+          <tr>
+            <td>Authorization</td>
+            <td><pre>{{ transaction.authorization }}</pre></td>
+          </tr>
+          <tr>
+            <td>Date</td>
+            <td><pre>{{ transaction.date }} or {{ transaction.created_at }}</pre></td>
+          </tr>
+          <tr>
+            <td>Gateway</td>
+            <td><pre>{{ transaction.gateway }}</pre></td>
+          </tr>
+          <tr>
+            <td>Payment method <span class="note">(eg: bank transfer, credit card)</span></td>
+            <td><pre>{{ transaction.gateway | payment_method }}</pre></td>
+          </tr>
+          <tr>
+            <td>Kind <span class="note">(eg: authorization, capture, refund)</span></td>
+            <td><pre>{{ transaction.kind }}</pre></td>
+          </tr>
+          <tr>
+            <td>Message</td>
+            <td><pre>{{ transaction.message }}</pre></td>
+          </tr>
+          <tr>
+            <td>Status</td>
+            <td><pre>{{ transaction.status }}</pre></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div></div></section>
+
+  
+  <section class="ui-annotated-section-container"><div class="ui-annotated-section"><div class="ui-annotated-section__annotation"><div class="ui-annotated-section__title"><h2 class="ui-heading">Shipping line details</h2></div></div><div class="ui-annotated-section__content">
+    <div class="variable-reference-table">
+
+      <table>
+        <thead>
+          <tr>
+            <th>Variable description</th>
+            <th>Variable name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Shipping lines</td>
+            <td><pre>{% for shipping_line in shipping_lines %}
+  ...
+{% endfor %}</pre></td>
+          </tr>
+          <tr>
+            <td>Title</td>
+            <td><pre>{{ shipping_line.title }}</pre></td>
+          </tr>
+          <tr>
+            <td>Price</td>
+            <td><pre>{{ shipping_line.price | money }}</pre></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div></div></section>
+
+  
+  <section class="ui-annotated-section-container"><div class="ui-annotated-section"><div class="ui-annotated-section__annotation"><div class="ui-annotated-section__title"><h2 class="ui-heading">Tax line details</h2></div></div><div class="ui-annotated-section__content">
+    <div class="variable-reference-table">
+
+      <table>
+        <thead>
+          <tr>
+            <th>Variable description</th>
+            <th>Variable name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Tax lines</td>
+            <td><pre>{% for tax_line in tax_lines %}
+  ...
+{% endfor %}</pre></td>
+          </tr>
+          <tr>
+            <td>Title</td>
+            <td><pre>{{ tax_line.title }}</pre></td>
+          </tr>
+          <tr>
+            <td>Rate</td>
+            <td><pre>{{ tax_line.rate }}</pre></td>
+          </tr>
+          <tr>
+            <td>Price</td>
+            <td><pre>{{ tax_line.price | money }}</pre></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div></div></section>
+
+  
+  <section class="ui-annotated-section-container"><div class="ui-annotated-section"><div class="ui-annotated-section__annotation"><div class="ui-annotated-section__title"><h2 class="ui-heading">Fulfillment details</h2></div></div><div class="ui-annotated-section__content">
+    <div class="variable-reference-table">
+
+      <table>
+        <thead>
+          <tr>
+            <th>Variable description</th>
+            <th>Variable name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Fulfillments</td>
+            <td><pre>{% for fulfillment in fulfillments %}
+  ...
+{% endfor %}</pre></td>
+          </tr>
+          <tr>
+            <td>Date</td>
+            <td><pre>{{ fulfillment.date }} or {{ fulfillment.created_at }}</pre></td>
+          </tr>
+          <tr>
+            <td>Tracking number</td>
+            <td><pre>{{ fulfillment.tracking_number }}</pre></td>
+          </tr>
+          <tr>
+            <td>Tracking company</td>
+            <td><pre>{{ fulfillment.tracking_company }}</pre></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div></div></section>
+
+  
+  <section class="ui-annotated-section-container"><div class="ui-annotated-section"><div class="ui-annotated-section__annotation"><div class="ui-annotated-section__title"><h2 class="ui-heading">Product details</h2></div></div><div class="ui-annotated-section__content">
+    <div class="variable-reference-table">
+
+      <table>
+        <thead>
+          <tr>
+            <th>Variable description</th>
+            <th>Variable name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Title</td>
+            <td><pre>{{ product.title }}</pre></td>
+          </tr>
+          <tr>
+            <td>Price</td>
+            <td><pre>{{ product.price | money }}</pre></td>
+          </tr>
+          <tr>
+            <td>Content</td>
+            <td><pre>{{ product.content }}</pre></td>
+          </tr>
+          <tr>
+            <td>Description</td>
+            <td><pre>{{ product.description }}</pre></td>
+          </tr>
+          <tr>
+            <td>Handle</td>
+            <td><pre>{{ product.handle }}</pre></td>
+          </tr>
+          <tr>
+            <td>Option names</td>
+            <td><pre>{{ product.options }}</pre></td>
+          </tr>
+          <tr>
+            <td>Tags</td>
+            <td><pre>{{ product.tags }}</pre></td>
+          </tr>
+          <tr>
+            <td>Type</td>
+            <td><pre>{{ product.type }}</pre></td>
+          </tr>
+          <tr>
+            <td>Vendor</td>
+            <td><pre>{{ product.vendor }}</pre></td>
+          </tr>
+          <tr>
+            <td>URL <span class="note">(eg: /products/product-handle)</span></td>
+            <td><pre>{{ product.url }}</pre></td>
+          </tr>
+          <tr>
+            <td>Featured image <span class="note">(first image)</span></td>
+            <td><pre>{{ product.featured_image | img_url: 'large' | img_tag }}</pre></td>
+          </tr>
+          <tr>
+            <td>Images</td>
+            <td><pre>{{ product.images }}</pre></td>
+          </tr>
+          <tr>
+            <td>Variants</td>
+            <td><pre>{{ product.variants }}</pre></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div></div></section>
+
+  
+  <section class="ui-annotated-section-container"><div class="ui-annotated-section"><div class="ui-annotated-section__annotation"><div class="ui-annotated-section__title"><h2 class="ui-heading">Variant details</h2></div></div><div class="ui-annotated-section__content">
+    <div class="variable-reference-table">
+
+      <table>
+        <thead>
+          <tr>
+            <th>Variable description</th>
+            <th>Variable name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Title</td>
+            <td><pre>{{ variant.title }}</pre></td>
+          </tr>
+          <tr>
+            <td>Price</td>
+            <td><pre>{{ variant.price | money }}</pre></td>
+          </tr>
+          <tr>
+            <td>Compare at price</td>
+            <td><pre>{{ variant.compare_at_price | money }}</pre></td>
+          </tr>
+          <tr>
+            <td>Weight</td>
+            <td><pre>{{ variant.weight }} or {{ variant.grams }}</pre></td>
+          </tr>
+          <tr>
+            <td>Weight with unit</td>
+            <td><pre>{{ variant.weight | weight_with_unit }}</pre></td>
+          </tr>
+          <tr>
+            <td>Inventory quantity</td>
+            <td><pre>{{ variant.inventory_quantity }}</pre></td>
+          </tr>
+          <tr>
+            <td>SKU</td>
+            <td><pre>{{ variant.sku }}</pre></td>
+          </tr>
+          <tr>
+            <td>Barcode</td>
+            <td><pre>{{ variant.barcode }}</pre></td>
+          </tr>
+          <tr>
+            <td>Option 1</td>
+            <td><pre>{{ variant.option1 }}</pre></td>
+          </tr>
+          <tr>
+            <td>Option 2</td>
+            <td><pre>{{ variant.option2 }}</pre></td>
+          </tr>
+          <tr>
+            <td>Option 3</td>
+            <td><pre>{{ variant.option3 }}</pre></td>
+          </tr>
+          <tr>
+            <td>Image</td>
+            <td><pre>{{ variant.image }}
+
+{{ variant.image | img_url: 'thumb' | img_tag }}
+{{ variant | img_url: 'thumb' | img_tag }}</pre></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div></div></section>
+
+  
+  
+  <section class="ui-annotated-section-container"><div class="ui-annotated-section"><div class="ui-annotated-section__annotation"><div class="ui-annotated-section__title"><h2 class="ui-heading">Filters</h2></div><div class="ui-annotated-section__description"><p>Available liquid filters.</p></div></div><div class="ui-annotated-section__content">
+    <div class="variable-reference-table">
+
+      <table>
+        <thead>
+          <tr>
+            <th>Filter description</th>
+            <th>Filter name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>File URL</td>
+            <td><pre>{{ 'file.txt' | files_url }}</pre></td>
+          </tr>
+          <tr>
+            <td>Asset URL</td>
+            <td><pre>{{ 'style.css' | asset_url }}</pre></td>
+          </tr>
+          <tr>
+            <td>Script tag</td>
+            <td><pre>{{ 'script.js' | asset_url | script_tag }}</pre></td>
+          </tr>
+          <tr>
+            <td>Stylesheet tag</td>
+            <td><pre>{{ 'style.css' | asset_url | stylesheet_tag }}</pre></td>
+          </tr>
+          <tr>
+            <td>Image tag</td>
+            <td><pre>{{ 'example.png' | img_tag }}</pre></td>
+          </tr>
+          <tr>
+            <td>Image URL</td>
+            <td><pre>{{ product.featured_image | img_url: 'large' | img_tag }}</pre></td>
+          </tr>
+          <tr>
+            <td>Money format</td>
+            <td><pre>{{ product.price | money }}</pre></td>
+          </tr>
+          <tr>
+            <td>Money format with currency</td>
+            <td><pre>{{ product.price | money_with_currency }}</pre></td>
+          </tr>
+          <tr>
+            <td>Money format without currency</td>
+            <td><pre>{{ product.price | money_without_currency }}</pre></td>
+          </tr>
+          <tr>
+            <td>Money format without decimals</td>
+            <td><pre>{{ product.price | money_no_decimals }}</pre></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div></div></section>
+
+    <div><section class="ui-annotated-section-container"><div class="ui-annotated-section"><div class="ui-annotated-section__annotation"><div class="ui-annotated-section__title"><h2 class="ui-heading">General variables</h2></div><div class="ui-annotated-section__description"><p>All of the general variables related to the order.</p></div></div><div class="ui-annotated-section__content">
+    <div class="variable-reference-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Variable description</th>
+            <th>Variable name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Shop name</td>
+            <td><pre>{{ shop_name }}</pre></td>
+          </tr>
+          <tr>
+            <td>Order number</td>
+            <td><pre>{{ order_number }}</pre></td>
+          </tr>
+          <tr>
+            <td>Order name <span class="note">(with # before number)</span></td>
+            <td><pre>{{ order_name }} or {{ name }}</pre></td>
+          </tr>
+          <tr>
+            <td>Date</td>
+            <td><pre>{{ date }} or {{ created_at }}</pre></td>
+          </tr>
+          <tr>
+            <td>Processed date</td>
+            <td><pre>{{ processed_at }}</pre></td>
+          </tr>
+          <tr>
+            <td>Billing address</td>
+            <td><pre>{{ billing_address }}</pre></td>
+          </tr>
+          <tr>
+            <td>Shipping address</td>
+            <td><pre>{{ shipping_address }}</pre></td>
+          </tr>
+          <tr>
+            <td>Shipping methods <span class="note">(collection of shipping lines)</span></td>
+            <td><pre>{{ shipping_methods }} or {{ shipping_lines }}</pre></td>
+          </tr>
+          <tr>
+            <td>Shipping method</td>
+            <td><pre>{{ shipping_method.title }} or {{ shipping_line.title }}</pre></td>
+          </tr>
+          <tr>
+            <td>Customer</td>
+            <td><pre>{{ customer }}</pre></td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td><pre>{{ email }}</pre></td>
+          </tr>
+          <tr>
+            <td>Financial status</td>
+            <td><pre>{{ financial_status }}</pre></td>
+          </tr>
+          <tr>
+            <td>Fulfillment status</td>
+            <td><pre>{{ fulfillment_status }}</pre></td>
+          </tr>
+          <tr>
+            <td>Fulfillment service</td>
+            <td><pre>{{ fulfillment_service }}</pre>
+          </td></tr><tr>
+            <td>Discounts amount <span class="note">(collection of discount amounts)</span></td>
+            <td><pre>{{ discounts_amount }}</pre></td>
+          </tr>
+          <tr>
+            <td>Discounts savings <span class="note">(collection of discount savings)</span></td>
+            <td><pre>{{ discounts_savings }}</pre></td>
+          </tr>
+          <tr>
+            <td>Payment gateways</td>
+            <td><pre>{{ gateways }}</pre></td>
+          </tr>
+          <tr>
+            <td>Payment gateway</td>
+            <td><pre>{{ gateway }}</pre></td>
+          </tr>
+          <tr>
+          </tr><tr>
+            <td>Order Currency <span class="note">(currency code of order)</span></td>
+            <td><pre>{{ order_currency }} or {{ currency }}</pre></td>
+          </tr>
+          <tr>
+            <td>Subtotal price</td>
+            <td><pre>{{ subtotal_price | money }}</pre></td>
+          </tr>
+          <tr>
+            <td>Shipping price</td>
+            <td><pre>{{ shipping_price | money }}</pre></td>
+          </tr>
+          <tr>
+            <td>Total discounts</td>
+            <td><pre>{{ total_discounts | money }}</pre></td>
+          </tr>
+          <tr>
+            <td>Total tax</td>
+            <td><pre>{{ total_tax | money }} or {{ tax_price | money }}</pre></td>
+          </tr>
+          <tr>
+            <td>Total price</td>
+            <td><pre>{{ total_price | money }}</pre></td>
+          </tr>
+          <tr>
+            <td>Total paid</td>
+            <td><pre>{{ total_paid | money }}</pre></td>
+          </tr>
+          <tr>
+            <td>Transactions</td>
+            <td><pre>{{ transactions  }}</pre></td>
+          </tr>
+          <tr>
+            <td>Order attributes</td>
+            <td><pre>{{ attributes }}</pre></td>
+          </tr>
+          <tr>
+            <td>Order note</td>
+            <td><pre>{{ note }}</pre></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div></div></section></div>
