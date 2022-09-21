@@ -102,7 +102,7 @@ Packed by:<br /><br />
     {% endfor %}
 
      {% if plantingaid != "" %}
-       <tr><td style="background:lightgray;" colspan="4">Planting Aids</td></tr>
+       <tr><td style="background:lightgray;" colspan="4"><strong>Planting Aids</strong> - Many are pre-packed, look for the order number. </td></tr>
       {{ plantingaid }}
     {% endif %}
     {% if grass != "" %}
@@ -118,7 +118,7 @@ Packed by:<br /><br />
       {{ wildflower }}
     {% endif %}
     {% if alpha != "" %}
-      <tr><td style="background:lightgray;" colspan="4">Conifers </td></tr>
+      <tr><td style="background:lightgray;" colspan="4"><strong>Conifers</strong> <br /> If type is "1 seedling" select from the single bin.<br />If type is a multiple of 25, select from the bundles of 25. </td></tr>
       {{ alpha }}
     {% endif %}
     {% if upcycle != "" %}
@@ -126,7 +126,7 @@ Packed by:<br /><br />
       {{ upcycle }}
     {% endif %}
     {% if other != "" %}
-              <tr><td style="background:lightgray;" colspan="4">Other (nothing to pack here)</td></tr>
+              <tr><td style="background:lightgray;" colspan="4"><strong>Donations / Other</strong> - nothing to pack here</td></tr>
       {{ other }}
     {% endif %}
 
@@ -184,12 +184,13 @@ Packed by:<br /><br />
     {{ shipping_address.phone }} <br />
     {% if customer.phone %} {{ customer.phone }} <br /> {% endif %}
 	{{ email }}<br /><br />
-{% if note %}
- {{ note }}
-{% endif %}
+
 	</td></tr>
 </table>
 -->
+{% if note %}
+ {{ note }}
+{% endif %}
     <div style="float: right;">
     {{ shipping_address.phone }}
     {% if customer.phone %} {{ customer.phone }} {% endif %}
