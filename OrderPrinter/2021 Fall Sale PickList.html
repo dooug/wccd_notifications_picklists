@@ -1,0 +1,188 @@
+<p style="float: right; text-align: right; margin: 0;">
+  Payment Status: {{ financial_status }}<br />
+ <span style="font-size:65px;">{{ order_name }}</span>
+</p>
+
+<div style="float: left; margin: 0; max-width:65%;" >
+  <strong style="font-size: 55px;">{{ shipping_address.last_name }}, {{ shipping_address.first_name }}</strong><br /><br />
+</div>
+  
+  <table class="table-tabular" class="borders" style="margin: 0 0 1.5em 0;">
+  <tr>
+  <td style="vertical-align: top; min-height: 50px; min-width: 150px">
+Packed by:<br /><br />
+<td style="background-color: lightgray; vertical-align: top; min-height: 50px;">
+<strong>If order is missing items or has an issue:</strong> <br />
+		1. Circle the missing item/s name<br />
+		2. In the first column, write the number packed. write 0 if none available<br />
+        3. Staple a color sticky note on the top left.<br />
+        4. Notify your team leader if you have questions <br />
+</td>
+</tr>
+<tr><td>Quality control<br /> checked by:
+</td><td style="padding:5px; ">Substitution/Donation/Credit/Refund Notes:<br /><br /><br /><br />
+</td></tr>
+  </table>
+  
+<table class="table-tabular" style="margin: 0 0 1.5em 0;">
+  <thead>
+    <tr>
+      <th style="width: 50px;" class="borders">Quantity Packed:</th>
+      <th style="width: 50px;" class="borders">Quantity</th>
+      <th style="width:75px;" class="borders">Type</th>
+      <th style="" class="borders">Common Name</th>
+    </tr>
+  </thead>
+  <tbody>
+{% assign conifer = "" %}
+{% assign nativeplant = "" %}
+{% assign gardenkit = "" %}
+{% assign plantingaid = "" %}
+{% assign other = "" %}
+    {% assign line_items_sorted = line_items | sort: "sku" %}
+    {% for line_item in line_items_sorted %}
+      {% capture line_item_html %} 
+      <tr>
+        <td class="borders">        </td>
+        <!-- td>{{ line_item.quantity }} x</td -->
+                <td><strong style="font-size: 20px;">{{ line_item.quantity }}</strong> x</td>
+                <td>{{ line_item.variant.title }}</td>
+        <td><b>{{ line_item.product.title }}</b></td>
+      </tr>
+      {% endcapture %}
+      {% if line_item.product.type contains "Conifer" %}
+          {% assign conifer = conifer | append: line_item_html %}
+      {% elsif line_item.product.type contains "Wildflower" %}
+          {% assign nativeplant = nativeplant | append: line_item_html %}
+      {% elsif line_item.product.type contains "Garden" %}
+          {% assign gardenkit = gardenkit | append: line_item_html %}
+      {% elsif line_item.product.type contains "Planting" %}
+          {% assign plantingaid = plantingaid | append: line_item_html %}
+      {% else %}
+          {% assign other = other | append: line_item_html %}
+      {% endif %}
+    {% endfor %}
+    {% if nativeplant != "" %}
+      <tr><td style="background:lightgray;" colspan="4"><strong>Native Plants</strong> - Pots</td></tr>
+      {{ nativeplant }}
+    {% endif %}
+    {% if gardenkit != "" %}
+          <tr><td style="background:lightgray;" colspan="4"><strong>Garden Kit</strong> - flats</td></tr>
+      {{ gardenkit }}
+    {% endif %}
+        {% if conifer != "" %}
+              <tr><td style="background:lightgray;" colspan="4"><strong>Conifers</strong> - Transplants <br /> If type is "1 transplant" select from the single bin.<br />If type is a multiple of 10, select from the bundles of 10.</td></tr>
+      {{ conifer }}
+    {% endif %}
+    {% if plantingaid != "" %}
+              <tr><td style="background:lightgray;" colspan="4"><strong>Planting Aids</strong> - Many are pre-packed, look for the order number. </td></tr>
+      {{ plantingaid }}
+    {% endif %}
+   {% if other != "" %}
+          <tr><td style="background:lightgray;" colspan="4"><strong>Donations / Other</strong> - nothing to pack here  </td></tr>
+      {{ other }}
+    {% endif %}
+
+  </tbody>
+</table>
+
+<!--
+{% if transactions.size > 1 %}
+  <h3 style="margin: 0 0 1em 0;">Transaction Details</h3>
+  <table class="table-tabular" style="margin: 0 0 1.5em 0;">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Kind</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for transaction in transactions %}
+        <tr>
+          <td>{{ transaction.gateway | payment_method }}</td>
+          <td>{{ transaction.amount | money }}</td>
+          <td>{{ transaction.kind }}</td>
+          <td>{{ transaction.status }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+-->
+
+<table>
+<tr><td style="width: 250px;">{% if shipping_address.company %}
+      {{ shipping_address.company }}<br/>
+    {% endif %}
+    {{ shipping_address.street }}<br/>
+    {{ shipping_address.city }}
+    {{ shipping_address.province_code }}
+    {{ shipping_address.zip | upcase }}<br/>
+    {{ shipping_address.country }}
+    </td><td>
+    {{ shipping_address.phone }} <br />
+    {% if customer.phone %} {{ customer.phone }} <br /> {% endif %}
+	{{ email }}<br /><br />
+{% if note %}
+ {{ note }}
+{% endif %}
+	</td></tr>
+</table>
+
+<!-- h3 style="margin: 0 0 1em 0;">Payment Details</h3>
+
+<table class="table-tabular" style="margin: 0 0 1.5em 0;">
+  <tr>
+    <td>Subtotal price:</td>
+    <td>{{ subtotal_price | money }}</td>
+  </tr>
+  {% for discount in discounts %}
+  <tr>
+    <td>Includes discount "{{ discount.code }}"</td>
+    <td>{{ discount.savings | money }}</td>
+  </tr>
+  {% endfor %}
+  <tr>
+    <td>Total tax:</td>
+    <td>{{ tax_price | money }}</td>
+  </tr>
+  {% if shipping_address %}
+    <tr>
+      <td>Shipping:</td>
+      <td>{{ shipping_price | money }}</td>
+    </tr>
+  {% endif %}
+  <tr>
+    <td><strong>Total price:</strong></td>
+    <td><strong>{{ total_price | money }}</strong></td>
+  </tr>
+  {% if total_paid != total_price %}
+    <tr>
+      <td><strong>Total paid:</strong></td>
+      <td><strong>{{ total_paid | money }}</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Outstanding or refunded Amount: </strong></td>
+      <td><strong>{{ total_price | minus: total_paid | money }}</strong></td>
+    </tr>
+  {% endif %}
+</table>
+-->
+
+
+<div style="page-break-after: always;"></div>
+
+<br/>
+
+
+<style type="text/css">
+.borders { 
+  border: 1px solid black !important;
+}
+.event-header {
+  padding-top: 10px;
+  background-color: lightgrey;
+}
+</style>
