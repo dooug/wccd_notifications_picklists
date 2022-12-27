@@ -386,10 +386,12 @@
       {% assign transaction_size = 0 %}
       {% assign transaction_amount = 0 %}
       {% for transaction in transactions %}
-        {% unless transaction.kind == "capture" or transaction.kind == "void" %}
+        {% if transaction.status == "success" %}
+        {% unless transaction.kind == "authorization" or transaction.kind == "void" %}
           {% assign transaction_size = transaction_size | plus: 1 %}
           {% assign transaction_amount = transaction_amount | plus: transaction.amount %}
         {% endunless %}
+        {% endif %}
       {% endfor %}
 
       {% if transaction_size > 1 or transaction_amount < total_price %}
@@ -398,7 +400,7 @@
           <tr><td colspan="2" class="subtotal-table__small-space"></td></tr>
 
           {% for transaction in transactions %}
-            {% if transaction.status == "success" and transaction.kind == "authorization" or transaction.kind == "sale" %}
+            {% if transaction.status == "success" and transaction.kind == "capture" or transaction.kind == "sale" %}
               {% if transaction.payment_details.credit_card_company %}
                 {% capture transaction_name %}{{ transaction.payment_details.credit_card_company }} (ending in {{ transaction.payment_details.credit_card_last_four_digits }}){% endcapture %}
               {% else %}
@@ -496,16 +498,16 @@
                 </td>
                 {% endif %}
                 {% assign transaction_count = transactions | size %}
-                {% if transaction_count > 0 %}
+                {% if transaction_size > 0 %}
                 <td class="customer-info__item">
                   <h4>Payment method</h4>
                   {% for transaction in transactions %}
                     {% if transaction.status == "success" or transaction.status == "pending" %}
-                      {% if transaction.kind == "authorization" or transaction.kind == "sale" %}
+                      {% if transaction.kind == "capture" or transaction.kind == "sale" %}
                         {% if transaction.payment_details.credit_card_company %}
                             <p class="customer-info__item-content">
                               <img src="{{ transaction.payment_details.credit_card_company | downcase | replace: ' ', '-'  | payment_type_img_url }}" class="customer-info__item-credit" height="24">
-                              <span>ending with {{ transaction.payment_details.credit_card_last_four_digits }} — <strong>{{ transaction.amount | money }}</strong></span>
+                              <span>ending with {{ transaction.payment_details.credit_card_last_four_digits }} </span>
                             </p>
                           {% elsif transaction.gateway_display_name == "Gift card" %}
                           <p class="customer-info__item-content">
@@ -515,8 +517,7 @@
                           </p>
                           {% else %}
                               <p class="customer-info__item-content">
-                              {{ transaction.gateway_display_name }} — <strong>{{ transaction.amount | money }}</strong>
-                              </p>
+                              {{ transaction.gateway_display_name }} </p>
                           {% endif %}
                   {% endif %}
                     {% endif %}
