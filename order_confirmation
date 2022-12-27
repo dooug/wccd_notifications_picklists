@@ -7,7 +7,9 @@
       {% when 'local' %}
         Hi {{ customer.first_name }}, we're getting your order ready for delivery.
       {% else %}
-        Hi {{ customer.first_name }}, your order has been confirmed. You'll get a reminder of the pick-up event's date and location later. 
+        Hi {{ customer.first_name }}, your order has been confirmed. <br /> 
+We'll send reminders for order pick-up event's date and location.
+
     {% endcase %}
       {% if delivery_instructions != blank  %}
         <p><b>Delivery information:</b> {{ delivery_instructions }}</p>
@@ -226,14 +228,24 @@
           {% endif %}
 
 
-                <!-- WCCD Edit - Show Custom Pick up tags --> 
-                {% assign currentyear = "now" | date: "%Y" %}
-                {% assign tagstart = "Pick-Up: " | append: 2023  %}
-                {% for tag in line.product.tags %}
-                  {% if tag contains tagstart %}
-                <div class="pick-up-tag">{{ tag }}</div>
-                  {% endif %}
-                {% endfor %}
+          <!-- WCCD Edit - Show Custom Pick up tags --> 
+          {% assign currentyear = "now" | date: "%Y" %}
+          {% assign tagstart = "Pick-Up: " | append: 2023  %}
+          {% assign springts = "Pick-Up: 2023 Spring Tree & Shrub Sale - April 28-29" %}
+          {% assign springnp = "2023 Spring Native Plant Sale - June 3" %}
+          {% assign springtsshow = 0 %}
+          {% assign springnpshow = 0 %}
+          {% for tag in line.product.tags %}
+            {% if tag contains tagstart %}
+            <div class="pick-up-tag">{{ tag }}</div>
+            {% endif %}
+            {% if tag contains springnp %}
+              {% assign springnpshow = 1 %}
+            {% endif %}
+            {% if tag contains springts %}
+              {% assign springtsshow = 1 %}
+            {% endif %}
+          {% endfor %}
 
             
         </td>
@@ -464,6 +476,15 @@
   </tr>
 </table>
 
+<div>
+  {% if springtsshow == 1 %}
+All Spring Tree & Shrub orders will be available to pick-up on Friday, April 28nd from 1-6 p.m. and Saturday, April 29th from 9-11 a.m. at the Farm Council Grounds, 5055 Ann Arbor-Saline Rd, Ann Arbor, MI 48103.
+  {% endif %}
+  {% if springnpshow == 1 %}
+All Spring Native Plant orders will be available to pick-up during the annual Native Plant Expo & Marketplace on June 3rd, 2023 from 9 a.m. to 1 p.m. at the Farm Council Grounds, 5055 Ann Arbor-Saline Rd, Ann Arbor, MI 48103.
+  {% endif %}
+</div>
+        
           <table class="row section">
   <tr>
     <td class="section__cell">
