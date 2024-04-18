@@ -78,7 +78,9 @@ Packed by:<br /><br />
       {% elsif line_item.variant.title contains '10'  %}
         {% assign bundleqty = 10 %}  
       {% elsif line_item.variant.title contains '5 Bare'  %}
-        {% assign bundleqty = 5 %}  
+        {% assign bundleqty = 5 %}
+      {% elsif line_item.variant.title contains 'Five'  %}
+        {% assign bundleqty = 5 %}
       {% elsif line_item.variant.title contains 'Four'  %}
         {% assign bundleqty = 4 %}  
       {% else %}
@@ -102,7 +104,7 @@ Packed by:<br /><br />
       {% elsif line_item.variant.title contains "seedlings" or line_item.variant.title == "25 Bare root plants"   %}
         {% assign bundlesize = 25 %}
         {% assign bundlename = "Bundle of 25" %}
-      {% elsif line_item.variant.title contains "Four"  %}
+      {% elsif line_item.variant.title contains "Four" or line_item.variant.title contains "Five"   %}
         {% assign bundlesize = 1 %}
         {% assign bundlename = "One 2-4 ft. tree" %}
       {% endif %}
