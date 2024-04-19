@@ -1,5 +1,9 @@
 <p style="float: right; text-align: right; margin: 0;">
+{% if financial_status == "pending" %}
+ <span style="color:red;"><span style="color:red; font-size:65px;">{{ order_name }}</span><br />Payment Due, Check-in at Customer Service.</span>
+{% else %}
  <span style="font-size:65px;">{{ order_name }}</span>
+{% endif %}
 </p>
 
 
@@ -319,9 +323,11 @@ Packed by:<br /><br />
   {% endif %}
 </table>
 -->
-<div class="thisistheend">END</div>
+<div class="thisistheend">{{ order_name }} - END</div>
 
+<!--
 <div style="page-break-after: always;"></div>
+-->
 
 <br/>
 
@@ -344,7 +350,7 @@ table td {
   border: solid 1px red;
   float:right; 
   Color:red;
-  width: 50px; 
+  width: 100px; 
   font-weight:bold; 
   padding:10px;
 }
