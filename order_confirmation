@@ -356,6 +356,27 @@
               {% endif %}
             {% endfor %}
           {% endif %}
+
+<!-- WCCD Edit - Show Custom Pick up tags --> 
+          {% assign currentyear = "now" | date: "%Y" %}
+          {% assign tagstart = "Pick-Up: " | append: currentyear  %}
+          {% assign springts = "Pick-Up: 2023 Spring Tree & Shrub Sale - April 28-29" %}
+          {% assign springnp = "2023 Spring Native Plant Sale - June 3" %}
+          {% assign springtsshow = false %}
+          {% assign springnpshow = false %}
+          {% for tag in line.product.tags %}
+            {% if tag contains tagstart %}
+            <div class="pick-up-tag">{{ tag }}</div>
+            {% endif %}
+            {% if tag contains springnp %}
+              {% assign springnpshow = true %}
+            {% endif %}
+            {% if tag contains springts %}
+              {% assign springtsshow = true %}
+            {% endif %}
+          {% endfor %}
+<!-- WCCD Edit - Show Custom Pick up tags END --> 
+            
         </td>
           {% if expand_bundles and line.bundle_parent? %}
             <td class="order-list__parent-price-cell">
@@ -375,7 +396,24 @@
           </td>
       </table>
     </td>
-  </tr>{% endfor %}
+  </tr>
+
+<!--- WCCD TICKET QR CODE --->
+<tr><td>
+{% if customer.email contains "reith@macd" %}
+  <!-- Doug troubleshooting -->
+{% endif %}
+      {% if line.product.tags contains "QR Code Ticket" and line.refunded_quantity == 0 %}
+        <!-- QR IMAGE -->
+<img src="https://qrcodegeneratorhub.com/uniq?order={{ order_status_url }}">
+  <div style="text-align:center;"><em>QR CODE TICKET<br />Email images must be displayed to see ticket code.<br />
+  Do not scan the code. Bring a printed copy or load on phone to show at event entry.</em></div>
+  {% endif %}
+</td></tr>
+<!--- WCCD TICKET QR CODE END --->
+                        
+            
+{% endfor %}
 </table>
 
             <table class="row subtotal-lines">
