@@ -1,303 +1,589 @@
-<div style="width: 22%; margin: 0 0 1.5em 0; padding: 1em; border: 1px solid black;">
-
-  <strong >{{ shop_name }}</strong><br />
-  {{ shop.address }}<br/>
-  {{ shop.city }} {{ shop.province_code }} {{ shop.zip | upcase }}<br/>
-  {{ shop.country }}
-</div>
-</div>
-<div style="font-size: 20px; float: left; width:50%; margin: 0 25% 1.5em 25%; padding: 1.5em; border: 1px solid black;">
-  <h2 style="margin: 0 0 20px 0;">{{ shipping_address.last_name }}, {{ shipping_address.first_name }}</h2>
-    {% if shipping_address.company %}
-      {{ shipping_address.company }}<br/>
-    {% endif %}
-    {{ shipping_address.street }}<br/>
-    {{ shipping_address.city }}
-    {{ shipping_address.province_code }}
-    {{ shipping_address.zip | upcase }}<br/>
-    {{ shipping_address.country }}
-</div>
-
-
- <div style="width: 200px; margin: 600px auto 100px;"> <img src="https://cdn.shopify.com/s/files/1/0260/2604/9613/files/wccd_360x.png?v=1606493635" height="80px" style="float: left;   transform: scale(-1, -1); ">
-  </div>
-
-<p style="page-break-after: always;">&nbsp;</p>
-<!-- end of mailer address page -->
-
-<!-- PICK UP DETAILS PAGE --> 
-<h2>Pick up your Spring Tree &amp; Shrub Order!</h2>
-Friday, April 23rd: 1 pm - 6 pm
-Saturday April 24th: 9 am - 10:30 am 
-Washtenaw Farm Council Grounds
-5055 Ann Arbor-Saline Rd
-Ann Arbor, MI 48103
-
-All orders must be picked up within these times.
-If you are unavailable please send someone in your place with your information (name, order number) to pick up your order.
-
-Orders that aren't picked up will be donated. 
-
-<h2>COVID-19 Safety &amp; Protocols</h2>
-For the safety of all, the distribution will be organized to avoid customers from leaving their cars, except to load their materials.
-Volunteers can help load your order into your trunk to provide an entirely contactless pick-up.
-
-Because of this, there will be no Choosing your items. ALL ORDERS WILL BE PRE-PACKED. 
-
-<h2>Extra Trees & Shrubs sale - April 24 10:30am</h2>
-No walk-ups. Must be on list!
-
-We sometimes have extra trees at the end of the April 23/24th distribution. There will be a call list you can sign onto in order to get in line to purchase trees at 10:30am on Saturday April 24th. To get on the list:
-
-<ol type="1">
-<li>Sign up in person during the distribution event on Friday or Saturday.
-</li><li>You will need to provide your name and a cell phone number.
-</li><li>For social distance safety, we will ask people to stay in the parking lot until we call you. We will call from the list in the order that people signed up.
-</li><li>You must be present at 10:30am on Saturday. When called come to the entrance and wait in a short socially distanced line for your turn to select from what's left. </li></ol>
-We make no guarantees of which species or quantities will be available. We will accept payment via cash, credit card or check. Check or cash is preferred. 
-
-<h2>Fall Tree &amp; Shrub sale</h2>
-No date is set yet, it will be early October. 
-We will make every effort to offer many of the species that sold out quickly this spring, however the species selection will depend on supplier availability. 
-We cannot carry over unmet orders to the fall given the selection might change. 
-Please follow WashtenawCD on Facebook or subscribe to our monthly e-newsletter for updates.
-http://www.washtenawcd.org
-
-
-
-
-<p style="page-break-after: always;">&nbsp;</p>
-<!-- end of PICK UP page -->
-
-
-<!-- ORDER CONFIRMATION PAGE --> 
-<p style="float: right; text-align: right; margin: 0;">
-  {{ "now" | date: "%m/%d/%y" }}<br />
-  Order: <span style="font-size:35px;">{{ order_name }}</span><br />
-  Order Payment Status: {{ financial_status }}
-</p>
-
-<div style="float: left; margin: 0 0 1.5em 0;" >
-  <strong style="font-size: 2em;">{{ shipping_address.last_name }}, {{ shipping_address.first_name }}</strong><br /><br />
-    {% if shipping_address.company %}
-      {{ shipping_address.company }}<br/>
-    {% endif %}
-    {{ shipping_address.street }}<br/>
-    {{ shipping_address.city }}
-    {{ shipping_address.province_code }}
-    {{ shipping_address.zip | upcase }}<br/>
-    {{ shipping_address.country }}
-</div>
-<hr />
-<h3 style="margin: 0 0 1em 0;">Item Details</h3>
-<table class="table-tabular" style="margin: 0 0 1.5em 0;">
-  <thead>
-    <tr>
-      <th>Quantity</th>
-      <th>Item</th>
-      <th>Price</th>
-    </tr>
-  </thead>
-  <tbody>
-{% assign npexpo = "" %}
-{% assign tssale = "" %}
-{% assign other = "" %}
-    {% assign line_items_sorted = line_items | sort: "sku" %}
-    {% for line_item in line_items_sorted %}
-      {% capture line_item_html %} 
-      <tr>
-        <td>{{ line_item.quantity }} x</td>
-        <td><b>{{ line_item.product.title }}</b><br />{{ line_item.variant.title }}</td>
-
-        <td>
-          {% if line_item.original_price != line_item.price %}
-            <s>{{ line_item.original_price | money }}</s>
-          {% endif %}
-          {{ line_item.price | money }}
-          </td>
-      </tr>
-      {% endcapture %}
-      {% if line_item.product.tags contains "Pick-Up: Native Plant Distribution June 5" %}
-          {% assign npexpo = npexpo | append: line_item_html %}
-      {% elsif line_item.product.tags contains "Pick-Up: Tree &amp; Shrub Distribution April 23-24" %}
-          {% assign tssale = tssale | append: line_item_html %}
+{% capture email_title %}Thank you for your purchase! {% endcapture %}
+{% capture email_body %}
+  {% if requires_shipping %}
+  {% case delivery_method %}
+      {% when 'pick-up' %}
+        You’ll receive an email when your order is ready for pickup.
+      {% when 'local' %}
+        Hi {{ customer.first_name }}, we're getting your order ready for delivery.
       {% else %}
-          {% assign other = other | append: line_item_html %}
+        Hi {{ customer.first_name }}, your order has been confirmed. <br /> 
+We'll send reminders for order pick-up event's date and location.
+
+    {% endcase %}
+      {% if delivery_instructions != blank  %}
+        <p><b>Delivery information:</b> {{ delivery_instructions }}</p>
       {% endif %}
-    {% endfor %}
-        {% if npexpo != "" %}
-    <tr class="event-header"><td colspan="3" class="h2 pickup">Native Plant Expo - June 5th</td></tr>
-      {{ npexpo }}
-    {% endif %}
-    {% if tssale != "" %}
-    <tr class="event-header"><td colspan="3" class="h2 pickup">Tree & Shrub Sale - April 23rd-24th</td></tr>
-      {{ tssale }}
-    {% endif %}
-    {% if other != "" %}
-    <tr class="event-header"><td colspan="3" class="h2 pickup">Monthly pick-ups at WCCD Office / Donations</td></tr>
-      {{ other }}
-    {% endif %}
+  {% endif %}
+{% endcapture %}
 
-  </tbody>
-</table>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <title>{{ email_title }}</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" type="text/css" href="/assets/notifications/styles.css">
+  <style>
+    .button__cell { background: {{ shop.email_accent_color }}; }
+    a, a:hover, a:active, a:visited { color: {{ shop.email_accent_color }}; }
+  </style>
+</head>
 
-{% if transactions.size > 0 %}
-  <h3 style="margin: 0 0 1em 0;">Transaction Details</h3>
-  <table class="table-tabular" style="margin: 0 0 1.5em 0;">
-    <thead>
+  <body>
+    <table class="body">
       <tr>
-      <th>Date</th>
-        <th>Type</th>
-        <th>Amount</th>
-        <th>Kind</th>
-          <th>Payment Details</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for transaction in transactions %}
+        <td>
+          <table class="header row">
+  <tr>
+    <td class="header__cell">
+      <center>
+
+        <table class="container">
+          <tr>
+            <td>
+
+              <table class="row">
+                <tr>
+                  <td class="shop-name__cell">
+                    {%- if shop.email_logo_url %}
+                      <img src="{{shop.email_logo_url}}" alt="{{ shop.name }}" width="{{ shop.email_logo_width }}">
+                    {%- else %}
+                      <h1 class="shop-name__text">
+                        <a href="{{shop.url}}">{{ shop.name }}</a>
+                      </h1>
+                    {%- endif %}
+                  </td>
+
+                    <td class="order-number__cell">
+                      <span class="order-number__text">
+                        Order {{ order_name }}
+                      </span>
+                    </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+        </table>
+
+      </center>
+    </td>
+  </tr>
+</table>
+
+          <table class="row content">
+  <tr>
+    <td class="content__cell">
+      <center>
+        <table class="container">
+          <tr>
+            <td>
+              
+            <h2>{{ email_title }}</h2>
+            <p>{{ email_body }}</p>
+            {% if order_status_url %}
+              <table class="row actions">
+  <tr>
+    <td class="empty-line"> </td>
+  </tr>
+  <tr>
+    <td class="actions__cell">
+      <table class="button main-action-cell">
         <tr>
-          <td>{{ transaction.created_at | date: "%a, %b %d, %y" }}</td>
-          <td>{{ transaction.gateway | payment_method }}</td>
-          <td>{{ transaction.amount | money }}</td>
-          <td>{{ transaction.kind }}</td>
-            <td>{{ transaction.payment_details.credit_card_company }} - {{ transaction.payment_details.credit_card_number }}</td>
-          <td>{{ transaction.status }}</td>
+          <td class="button__cell"><a href="{{ order_status_url }}" class="button__text">View your order</a></td>
         </tr>
+      </table>
+      {% if shop.url %}
+    <table class="link secondary-action-cell">
+      <tr>
+        <td class="link__cell">or <a href="{{ shop.url }}">Visit our store</a></td>
+      </tr>
+    </table>
+{% endif %}
+
+    </td>
+  </tr>
+</table>
+
+            {% else %}
+              {% if shop.url %}
+    <table class="row actions">
+      <tr>
+        <td class="actions__cell">
+          <table class="button main-action-cell">
+            <tr>
+              <td class="button__cell"><a href="{{ shop.url }}" class="button__text">Visit our store</a></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+{% endif %}
+
+            {% endif %}
+
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
+</table>
+
+          {% assign gift_card_line_item = line_items | where: "gift_card" %}
+          {% if gift_card_line_item.first %}
+            <table class="row section">
+  <tr>
+    <td class="section__cell">
+      <center>
+        <table class="container">
+          <tr>
+            <td>
+              <h3>Gift card</h3>
+            </td>
+          </tr>
+        </table>
+        <table class="container">
+          <tr>
+            <td>
+              
+              <p> You’ll receive separate emails for any gift cards.</p>
+
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
+</table>
+          {% endif %}
+
+          <table class="row section">
+  <tr>
+    <td class="section__cell">
+      <center>
+        <table class="container">
+          <tr>
+            <td>
+              <h3>Order summary</h3>
+            </td>
+          </tr>
+        </table>
+        <table class="container">
+          <tr>
+            <td>
+              
+            
+<table class="row">
+  {% for line in subtotal_line_items %}
+
+  <tr class="order-list__item">
+    <td class="order-list__item__cell">
+      <table>
+        <td>
+          {% if line.image %}
+            <img src="{{ line | img_url: 'compact_cropped' }}" align="left" width="60" height="60" class="order-list__product-image"/>
+          {% endif %}
+        </td>
+        <td class="order-list__product-description-cell">
+          {% if line.product.title %}	
+            {% assign line_title = line.product.title %}	
+          {% else %}	
+            {% assign line_title = line.title %}	
+          {% endif %}
+
+          {% if line.quantity < line.quantity %}
+            {% capture line_display %} {{ line.quantity }} of {{ line.quantity }} {% endcapture %}
+          {% else %}
+            {% assign line_display = line.quantity  %}
+          {% endif %}
+
+          <span class="order-list__item-title">{{ line_title }} × {{ line_display }}</span><br/>
+
+          {% if line.variant.title != 'Default Title' %}
+            <span class="order-list__item-variant">{{ line.variant.title }}</span><br/>
+          {% endif %}
+
+          {% if line.selling_plan_allocation %}
+            <span class="order-list__item-variant">{{ line.selling_plan_allocation.selling_plan.name }}</span><br/>
+          {% endif %}
+
+          {% if line.refunded_quantity > 0 %}
+            <span class="order-list__item-refunded">Refunded</span>
+          {% endif %}
+
+          {% if line.discount_allocations %}
+            {% for discount_allocation in line.discount_allocations %}
+              {% if discount_allocation.discount_application.target_selection != 'all' %}
+                <span class="order-list__item-discount-allocation">
+                  <img src="{{ 'notifications/discounttag.png' | shopify_asset_url }}" width="18" height="18" class="discount-tag-icon" />
+                  <span>
+                    {{ discount_allocation.discount_application.title | upcase }}
+                    (-{{ discount_allocation.amount | money }})
+                  </span>
+                </span>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+
+
+          <!-- WCCD Edit - Show Custom Pick up tags --> 
+          {% assign currentyear = "now" | date: "%Y" %}
+          {% assign tagstart = "Pick-Up: " | append: currentyear  %}
+          {% assign springts = "Pick-Up: 2023 Spring Tree & Shrub Sale - April 28-29" %}
+          {% assign springnp = "2023 Spring Native Plant Sale - June 3" %}
+          {% assign springtsshow = false %}
+          {% assign springnpshow = false %}
+          {% for tag in line.product.tags %}
+            {% if tag contains tagstart %}
+            <div class="pick-up-tag">{{ tag }}</div>
+            {% endif %}
+            {% if tag contains springnp %}
+              {% assign springnpshow = true %}
+            {% endif %}
+            {% if tag contains springts %}
+              {% assign springtsshow = true %}
+            {% endif %}
+          {% endfor %}
+
+            
+        </td>
+          <td class="order-list__price-cell">
+            {% if line.original_line_price != line.final_line_price %}
+              <del class="order-list__item-original-price">{{ line.original_line_price | money }}</del>
+            {% endif %}
+            <p class="order-list__item-price">
+              {% if line.final_line_price > 0 %}
+                {{ line.final_line_price | money }}
+              {% else %}
+                Free
+              {% endif %}
+            </p>
+          </td>
+      </table>
+    </td>
+  </tr>{% endfor %}
+</table>
+
+            <table class="row subtotal-lines">
+  <tr>
+    <td class="subtotal-spacer"></td>
+    <td>
+      <table class="row subtotal-table">
+        {% for discount_application in discount_applications %}
+          {% if discount_application.target_selection == 'all' %}
+            {% capture discount_title %}
+              {% if discount_application.title %}
+                {{ discount_application.title | upcase }}
+              {% else %}
+                Discount
+              {% endif %}
+            {% endcapture %}
+            
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+      <span>Discount</span>
+        <span class="subtotal-line__discount">
+          <img src="{{ 'notifications/discounttag.png' | shopify_asset_url }}" width="18" height="18" class="discount-tag-icon" />
+          <span class="subtotal-line__discount-title">{{ discount_title }}</span>
+        </span>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+    <strong>-{{ discount_application.total_allocated_amount | money }}</strong>
+  </td>
+</tr>
+
+          {% endif %}
+        {% endfor %}
+
+        
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+      <span>Subtotal</span>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+    <strong>{{ subtotal_price | money }}</strong>
+  </td>
+</tr>
+
+        {% if delivery_method == 'pick-up' %}
+          
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+      <span>Pickup</span>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+    <strong>{{ shipping_price | money }}</strong>
+  </td>
+</tr>
+
+        {% else %}
+          
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+  </td>
+</tr>
+
+        {% endif %}
+
+        {% if current_total_duties %}
+          
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+      <span>Duties</span>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+    <strong>{{ current_total_duties | money }}</strong>
+  </td>
+</tr>
+
+        {% endif %}
+
+        
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+      <span>Taxes</span>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+    <strong>{{ tax_price | money }}</strong>
+  </td>
+</tr>
+
+
+        {% if total_tip and total_tip > 0 %}
+          
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+      <span>Tip</span>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+    <strong>{{ total_tip | money }}</strong>
+  </td>
+</tr>
+
+        {% endif %}
+      </table>
+      <table class="row subtotal-table subtotal-table--total">
+        
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+      <span>Total</span>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+    <strong>{{ total_price | money_with_currency }}</strong>
+  </td>
+</tr>
+
+      </table>
+
+      {% if total_discounts > 0 %}
+        <p class="total-discount">
+          You saved <span class="total-discount--amount">{{ total_discounts | money }}</span>
+        </p>
+      {% endif %}
+
+      {% assign transaction_size = 0 %}
+      {% assign transaction_amount = 0 %}
+      {% for transaction in transactions %}
+        {% if transaction.status == "success" %}
+        {% unless transaction.kind == "authorization" or transaction.kind == "void" %}
+          {% assign transaction_size = transaction_size | plus: 1 %}
+          {% assign transaction_amount = transaction_amount | plus: transaction.amount %}
+        {% endunless %}
+        {% endif %}
       {% endfor %}
-    </tbody>
-  </table>
-{% endif %}
 
-<h3 style="margin: 0 0 1em 0;">Payment Details</h3>
+      {% if transaction_size > 1 or transaction_amount < total_price %}
+        <table class="row subtotal-table">
+          <tr><td colspan="2" class="subtotal-table__line"></td></tr>
+          <tr><td colspan="2" class="subtotal-table__small-space"></td></tr>
 
-<table class="table-tabular" style="margin: 0 0 1.5em 0;">
-  <tr>
-    <td>Subtotal price:</td>
-    <td>{{ subtotal_price | money }}</td>
+          {% for transaction in transactions %}
+            {% if transaction.status == "success" and transaction.kind == "capture" or transaction.kind == "sale" %}
+              {% if transaction.payment_details.credit_card_company %}
+                {% capture transaction_name %}{{ transaction.payment_details.credit_card_company }} (ending in {{ transaction.payment_details.credit_card_last_four_digits }}){% endcapture %}
+              {% else %}
+                {% capture transaction_name %}{{ transaction.gateway_display_name }}{% endcapture %}
+              {% endif %}
+
+              
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+      <span>{{transaction_name}}</span>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+    <strong>{{ transaction.amount | money }}</strong>
+  </td>
+</tr>
+
+            {% endif %}
+            {% if transaction.kind == 'refund' %}
+              {% if transaction.payment_details.credit_card_company %}
+                {% assign refund_method_title = transaction.payment_details.credit_card_company %}
+              {% else %}
+                {% assign refund_method_title = transaction.gateway %}
+              {% endif %}
+
+              
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+      <span>Refund</span>
+        <br>
+        <small>{{ refund_method_title | capitalize }}</small>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+    <strong>- {{ transaction.amount | money }}</strong>
+  </td>
+</tr>
+
+            {% endif %}
+          {% endfor %}
+        </table>
+      {% endif %}
+    </td>
   </tr>
-  {% for discount in discounts %}
-  <tr>
-    <td>Includes discount "{{ discount.code }}"</td>
-    <td>{{ discount.savings | money }}</td>
-  </tr>
-  {% endfor %}
-  <tr>
-    <td>Total tax:</td>
-    <td>{{ tax_price | money }}</td>
-  </tr>
-  {% if shipping_address %}
-    <tr>
-      <td>Shipping:</td>
-      <td>{{ shipping_price | money }}</td>
-    </tr>
-  {% endif %}
-  <tr>
-    <td><strong>Total price:</strong></td>
-    <td><strong>{{ total_price | money }}</strong></td>
-  </tr>
-  {% if total_paid != total_price %}
-    <tr>
-      <td><strong>Total paid:</strong></td>
-      <td><strong>{{ total_paid | money }}</strong></td>
-    </tr>
-    <tr>
-      <td><strong>Outstanding Amount:</strong></td>
-      <td><strong>{{ total_price | minus: total_paid | money }}</strong></td>
-    </tr>
-  {% endif %}
 </table>
 
-{% if note %}
-  <h3 style="margin: 0 0 1em 0;">Customer Note / Check info:</h3>
-  <p>{{ note }}</p>
-{% endif %}
 
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
+</table>
 
-<p style="page-break-after: always;">&nbsp;</p>
-<!-- end of order summary page -->
-
-{% for line_item in line_items %}
-  {% if line_item.name contains "Donation" %}
-<h2>Thank you for your donation to the School &amp; Community Habitat Grant!</h2>
-
-<p>The Directors and Staff of the Washtenaw County Conservation District appreciate your support of our efforts to further conservation through the School & Community Habitat Grant.</p>
-<p>The Washtenaw County Conservation District (WCCD) School and Community Habitat Grant is designed to assist schools and communities with accessing plants and establishing wildlife habitat. Grants will be awarded in the form of tree, shrub and native plant material through the WCCD distributions. Grant fund availability is dependent on donations made to the WCCD for this purpose and grant selections will be made based on the amount donated.</p>
-
-<table class="table-tabular" style="width: 90%; margin: 0 20px 1.5em;">
-<tr>
-<td>Organization Name and Address:</td>
-<td>
-  <strong >{{ shop_name }}</strong><br />
-  {{ shop.address }}<br/>
-  {{ shop.city }} {{ shop.province_code }} {{ shop.zip | upcase }}<br/>
-  {{ shop.country }}
-</td>
-</tr>
-<tr>
-<td>Donor Name and Address:</td>
-<td>
-  {{ shipping_address.last_name }}, {{ shipping_address.first_name }}<br />
-    {% if shipping_address.company %}
-      {{ shipping_address.company }}<br/>
-    {% endif %}
-    {{ shipping_address.street }}<br/>
-    {{ shipping_address.city }}
-    {{ shipping_address.province_code }}
-    {{ shipping_address.zip | upcase }}<br/>
-    {{ shipping_address.country }}
+<div>
+  {% if springtsshow  %}
+<p>All Spring Tree & Shrub orders will be available to pick-up on Friday, April 28nd from 1-6 p.m. and Saturday, April 29th from 9-11 a.m. at the Farm Council Grounds, 5055 Ann Arbor-Saline Rd, Ann Arbor, MI 48103.</p>
+  {% endif %}
+  {% if springnpshow %}
+<p>All Spring Native Plant orders will be available to pick-up during the annual Native Plant Expo & Marketplace on June 3rd, 2023 from 9 a.m. to 1 p.m. at the Farm Council Grounds, 5055 Ann Arbor-Saline Rd, Ann Arbor, MI 48103.</p>
+  {% endif %}
 </div>
-</td>
-</tr>
-<tr>
-<td>Order Number</td>
-<td>{{ order_name }}</td>
-</tr>
-<tr>
-<td>Date Received Donation:</td>
-<td>{{ created_at | date: "%Y-%m-%d %H:%M"  }}</td>
-</tr>
-<tr>
-<td>Date Receipt Issued:</td>
-<td>{{ "now" | date: "%Y-%m-%d %H:%M" }}</td>
-</tr>
-<tr>
-<td>Total Donation:</td>
-<td>  {{ line_item.line_price | money }} <br />
-</td>
-</tr>
-<tr>
-<td colspan="2">
-<p>Your donation is tax deductible under Section 170(c)(1) of the Internal Revenue Code.
-</p>
-<p>No goods or services were given to the donor for this contribution.<br /></p>
-</td></tr>
+        
+          <table class="row section">
+  <tr>
+    <td class="section__cell">
+      <center>
+        <table class="container">
+          <tr>
+            <td>
+              <h3>Customer information</h3>
+            </td>
+          </tr>
+        </table>
+        <table class="container">
+          <tr>
+            <td>
+              
+            <table class="row">
+              <tr>
+                {% if requires_shipping and shipping_address %}
+                <td class="customer-info__item">
+                  <h4>Address</h4>
+                  {{ shipping_address | format_address }}
+                </td>
+                {% endif %}
+                {% if billing_address %}
+                <td class="customer-info__item">
+                  <h4>Billing address</h4>
+                  {{ billing_address | format_address }}
+                </td>
+                {% endif %}
+              </tr>
+            </table>
+            <table class="row">
+              <tr>
+                {% if requires_shipping and shipping_address %}
+                <td class="customer-info__item">
+                  <h4>Shipping method</h4>
+                  <p>Pick Up</p>
+                </td>
+                {% endif %}
+                {% assign transaction_count = transactions | size %}
+                {% if transaction_size > 0 %}
+                <td class="customer-info__item">
+                  <h4>Payment method</h4>
+                  {% for transaction in transactions %}
+                    {% if transaction.status == "success" or transaction.status == "pending" %}
+                      {% if transaction.kind == "capture" or transaction.kind == "sale" %}
+                        {% if transaction.payment_details.credit_card_company %}
+                            <p class="customer-info__item-content">
+                              <img src="{{ transaction.payment_details.credit_card_company | downcase | replace: ' ', '-'  | payment_type_img_url }}" class="customer-info__item-credit" height="24">
+                              <span>ending with {{ transaction.payment_details.credit_card_last_four_digits }} </span>
+                            </p>
+                          {% elsif transaction.gateway_display_name == "Gift card" %}
+                          <p class="customer-info__item-content">
+                            <img src="{{ transaction.gateway_display_name | downcase | replace: ' ', '-'  | payment_type_img_url }}" class="customer-info__item-credit" height="24">
+                          ending with {{ transaction.payment_details.gift_card.last_four_characters | upcase }} — <strong>{{ transaction.amount | money }}</strong> <br />
+                                Gift card balance: {{ transaction.payment_details.gift_card.balance |  money }}
+                          </p>
+                          {% else %}
+                              <p class="customer-info__item-content">
+                              {{ transaction.gateway_display_name }} </p>
+                          {% endif %}
+                  {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </td>
+                {% endif %}
+              </tr>
+            </table>
+
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
 </table>
 
-<p>Again, thank you and stay tuned to hear about the grant awardees' projects! Please reach out with any questions.<br />
-<br />
-Sincerely,<br />
-Doug Reith<br />
-<em>Resource Coordinator</em><br />
-Washtenaw County Conservation District<br />
-(734) 302-8713<br />
-doug@washtenawcd.org
-</p>
+          <table class="row footer">
+  <tr>
+    <td class="footer__cell">
+      <center>
+        <table class="container">
+          <tr>
+            <td>
+              
+              <p class="disclaimer__subtext">If you have any questions, reply to this email or contact us at <a href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
+</table>
 
-  {% endif %}
-  
-{% endfor %}
+<img src="{{ 'notifications/spacer.png' | shopify_asset_url }}" class="spacer" height="1" />
 
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
 
-<style type="text/css">
-.borders { 
-  border: 1px solid black !important;
-}
-.event-header {
-  padding-top: 10px;
-  background-color: lightgrey;
-}
-.pickup {
-  text-align: center !important;
-}
-</style>
