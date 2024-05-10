@@ -230,7 +230,7 @@ We'll send reminders for order pick-up event's date and location.
 
           <!-- WCCD Edit - Show Custom Pick up tags --> 
           {% assign currentyear = "now" | date: "%Y" %}
-          {% assign tagstart = "Pick-Up: " | append: 2023  %}
+          {% assign tagstart = "Pick-Up: " | append: currentyear  %}
           {% assign springts = "Pick-Up: 2023 Spring Tree & Shrub Sale - April 28-29" %}
           {% assign springnp = "2023 Spring Native Plant Sale - June 3" %}
           {% assign springtsshow = false %}
