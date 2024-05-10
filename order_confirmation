@@ -276,7 +276,8 @@ We'll send reminders for order pick-up event's date and location.
       {% if line.product.tags contains "QR Code Ticket" %}
         <!-- QR IMAGE -->
 <img src="https://qrcodegeneratorhub.com/uniq?order={{ order_status_url }}">
-  <div><em>QR CODE TICKET - Email images must be displayed to see ticket code</em></div>
+  <div style="text-align:center;"><em>QR CODE TICKET<br />Email images must be displayed to see ticket code.<br />
+  Do not scan the code. Bring a printed copy or load on phone to show at event entry.</em></div>
   {% endif %}
 </td></tr>
 <!--- WCCD TICKET QR CODE END --->
