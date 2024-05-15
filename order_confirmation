@@ -107,6 +107,7 @@
                             </td>
                           </tr>
                       {%- endif %}
+
                     </td>
                 </tr>
               </table>
@@ -216,6 +217,7 @@
           </tr>
         </table>
         <table class="container">
+
           <tr>
             <td>
               
@@ -402,10 +404,11 @@
 <tr><td>
 {% if customer.email contains "reith@macd" %}
   <!-- Doug troubleshooting -->
+  {{ order_status_url }}
 {% endif %}
       {% if line.product.tags contains "QR Code Ticket" and line.refunded_quantity == 0 %}
         <!-- QR IMAGE -->
-<img src="https://qrcodegeneratorhub.com/uniq?order={{ order_status_url }}">
+<div style="text-align:center"><img style="width: 75%; max-width:600px !important;" src="https://qrcodegeneratorhub.com/uniq?order={{ order_status_url }}"></div>
   <div style="text-align:center;"><em>QR CODE TICKET<br />Email images must be displayed to see ticket code.<br />
   Do not scan the code. Bring a printed copy or load on phone to show at event entry.</em></div>
   {% endif %}
@@ -875,6 +878,15 @@
     <td class="footer__cell">
       <center>
         <table class="container">
+                      {% if order.note %} <!--- WCCD Addition -->
+                          <tr>
+                            <td class="ordernote__cell">
+                              <span class="ordernote_span">
+                                ORDER NOTE: {{ order.note }}<br />
+                              </span>
+                            </td>
+                          </tr>
+                      {%- endif %}
           <tr>
             <td>
               
