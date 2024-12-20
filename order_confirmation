@@ -360,23 +360,25 @@
           {% endif %}
 
 <!-- WCCD Edit - Show Custom Pick up tags --> 
+          <!-- WCCD Edit - Show Custom Pick up tags --> 
           {% assign currentyear = "now" | date: "%Y" %}
-          {% assign tagstart = "Pick-Up: " | append: currentyear  %}
-          {% assign springts = "Pick-Up: 2023 Spring Tree & Shrub Sale - April 28-29" %}
-          {% assign springnp = "2023 Spring Native Plant Sale - June 3" %}
-          {% assign springtsshow = false %}
-          {% assign springnpshow = false %}
+          {% assign tagstart = "Pick-Up: " | append: '2025'  %} <!-- hardcoded in Dec -->
+          {% assign linkhref = "https://washtenawcd.org/residents/sales/" %}
           {% for tag in line.product.tags %}
-            {% if tag contains tagstart %}
-            <div class="pick-up-tag">{{ tag }}</div>
+            {% if tag contains "Tree" and tag contains tagstart %}
+              <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/spring-tree-shrub-sale" target="_blank">{{ tag }}</a></div>
+            {% elsif tag contains "Native Plant" and tag contains tagstart %}
+              <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/spring-native-plant-sale" target="_blank">{{ tag }}</a></div>
+            {% elsif tag contains tagstart %}
+              <div class="pick-up-tag">{{ tag }}</div>
             {% endif %}
-            {% if tag contains springnp %}
-              {% assign springnpshow = true %}
-            {% endif %}
-            {% if tag contains springts %}
-              {% assign springtsshow = true %}
-            {% endif %}
+
           {% endfor %}
+          <!-- could be improved for RB sales -->
+          {% if line.sku contains "RBSale" %}
+              <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/rain-barrel-sales" target="_blank">Pick-Up: Rain Barrel Distributions</a></div>
+            {% endif %}
+ 
 <!-- WCCD Edit - Show Custom Pick up tags END --> 
             
         </td>
