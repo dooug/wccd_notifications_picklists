@@ -29,10 +29,12 @@
                   <td class="shop-name__cell">
                     {%- if shop.email_logo_url %}
                       <img src="{{shop.email_logo_url}}" alt="{{ shop.name }}" width="{{ shop.email_logo_width }}">
+
                     {%- else %}
                       <h1 class="shop-name__text">
                         <a href="{{shop.url}}">{{ shop.name }}</a>
                       </h1>
+
                     {%- endif %}
                   </td>
 
@@ -155,11 +157,25 @@
             {% endfor %}
           {% endif %}
 <!-- WCCD EDITS -->
-{% for tag in line.product.tags %}
-                  {% if tag contains 'Pick-Up:' %}
-                <div class="pick-up-tag">{{ tag }}</div>
-                  {% endif %}
-                {% endfor %}
+          <!-- WCCD Edit - Show Custom Pick up tags --> 
+          {% assign currentyear = "now" | date: "%Y" %}
+          {% assign tagstart = "Pick-Up: " | append: '2025'  %} <!-- hardcoded in Dec -->
+          {% assign linkhref = "https://washtenawcd.org/residents/sales/" %}
+          {% for tag in line.product.tags %}
+            {% if tag contains "Tree" and tag contains tagstart %}
+              <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/spring-tree-shrub-sale" target="_blank">{{ tag }}</a></div>
+            {% elsif tag contains "Native Plant" and tag contains tagstart %}
+              <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/spring-native-plant-sale" target="_blank">{{ tag }}</a></div>
+            {% elsif tag contains tagstart %}
+              <div class="pick-up-tag">{{ tag }}</div>
+            {% endif %}
+
+          {% endfor %}
+          <!-- could be improved for RB sales -->
+          {% if line.sku contains "RBSale" %}
+              <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/rain-barrel-sales" target="_blank">Pick-Up: Rain Barrel Distributions</a></div>
+            {% endif %}
+            
         </td>
           <td class="order-list__price-cell">
             {% if line.original_line_price != line.final_line_price %}
@@ -240,7 +256,7 @@
 <tr class="subtotal-line">
   <td class="subtotal-line__title">
     <p>
-      <span>Taxes</span>
+      <span>Estimated taxes</span>
     </p>
   </td>
   <td class="subtotal-line__value">
@@ -360,19 +376,19 @@
               
         <table class="row">
           <tr>
-            {% if shipping_address %}
+             {% if billing_address %}
+            <td class="customer-info__item">
+              <h4>Billing address</h4>
+              {{ billing_address | format_address }}
+            </td>
+            {% elsif shipping_address %}
             <td class="customer-info__item">
               <h4>Shipping address</h4>
               {{ shipping_address | format_address }}
             </td>
             {% endif %}
 
-            {% if billing_address %}
-            <td class="customer-info__item">
-              <h4>Billing address</h4>
-              {{ billing_address | format_address }}
-            </td>
-            {% endif %}
+
           </tr>
         </table>
         {% if shipping_method %}
@@ -402,7 +418,11 @@
         <table class="container">
           <tr>
             <td>
-              
+              <p>
+                {{shop.name }}<br />
+                {{ shop.address.summary }}<br />
+                {{ shop.phone }}
+              </p>
               <p class="disclaimer__subtext">If you have any questions, reply to this email or contact us at <a href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
             </td>
           </tr>
