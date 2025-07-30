@@ -367,17 +367,23 @@
           {% for tag in line.product.tags %}
             {% if tag contains "Tree" and tag contains tagstart %}
               <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/spring-tree-shrub-sale" target="_blank">{{ tag }}</a></div>
-            {% elsif tag contains "Native Plant" and tag contains tagstart %}
+            {% elsif tag contains "Native Plant Expo"  %}
+              <div class="pick-up-tag"><a href="https://washtenawcd.org/native-plant-expo" target="_blank">{{ tag }}</a></div>
+            {% elsif tag contains "Native Plant Distribution" and tag contains tagstart %}
               <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/spring-native-plant-sale" target="_blank">{{ tag }}</a></div>
+            {% elsif tag contains "Rain Barrel" and tag contains tagstart %}
+              <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/rain-barrel-sales" target="_blank">{{ tag }}</a></div>
             {% elsif tag contains tagstart %}
               <div class="pick-up-tag">{{ tag }}</div>
             {% endif %}
 
           {% endfor %}
-          <!-- could be improved for RB sales -->
+          
+            <!-- could be improved for ongoing RB sales 
           {% if line.sku contains "RBSale" %}
               <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/rain-barrel-sales" target="_blank">Pick-Up: Rain Barrel Distributions</a></div>
             {% endif %}
+            -->
  
 <!-- WCCD Edit - Show Custom Pick up tags END --> 
             
@@ -410,7 +416,7 @@
 {% endif %}
       {% if line.product.tags contains "QR Code Ticket" and line.refunded_quantity == 0 %}
         <!-- QR IMAGE -->
-<div style="text-align:center"><img style="width: 75%; max-width:600px !important;" src="https://qrcodegeneratorhub.com/uniq?order={{ order_status_url }}"></div>
+  <div style="text-align:center"><img style="width: 75%; max-width:600px !important;" src="https://qrcodegeneratorhub.com/uniq?order={{ order_status_url }}"></div>
   <div style="text-align:center;"><em>QR CODE TICKET<br />Email images must be displayed to see ticket code.<br />
   Do not scan the code. Bring a printed copy or load on phone to show at event entry.</em></div>
   {% endif %}
