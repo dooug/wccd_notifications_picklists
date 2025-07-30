@@ -2371,6 +2371,17 @@
           </tr>
         </table>
         <table class="container">
+<!--- WCCD Addition order note START -->
+                      {% if order.note %} 
+                          <tr>
+                            <td class="ordernote__cell">
+                              <span class="ordernote_span">
+                                ORDER NOTE: {{ order.note }}<br />
+                              </span>
+                            </td>
+                          </tr>
+                      {%- endif %}
+<!--- WCCD Addition NOTE END -->
           <tr>
             <td>
               
