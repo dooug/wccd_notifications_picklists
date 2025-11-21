@@ -1414,11 +1414,11 @@
           <!-- Show Custom Pick up tags for current sales only! --> 
           {% assign currentyear = "now" | date: "%Y" %}
           {% assign currentmonth = "now" | date: "%m" %}
-          {% if currentmonth == '11' or currentmonth == '12' %} <!-- if Nov or Dec, use next year tags -->
-            {% increment currentyear %}
+          {% if currentmonth == '11' or currentmonth == '12' %} <!-- if Nov or Dec, use next year tags --> 
+            {% assign currentyear = currentyear | plus: 1 %}
           {% endif %}
           {% assign tagstart = "Pick-Up: " | append: currentyear  %}
-          
+     
           {% for tag in line.product.tags %}
             {% if currentmonth == '07' or currentmonth == '08' or currentmonth == '09' %}   <!-- Fall sale tags only --> 
               {% if tag contains "Fall Tree" and tag contains tagstart %}
@@ -1436,7 +1436,7 @@
           {% endfor %}
           
           {% if line.sku contains "RBSale" %}
-              <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/rain-barrel-sales" target="_blank">Pick-Up: Rain Barrel Distributions at WCCD Office</a></div>
+              <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/rain-barrel-sales" target="_blank">Pick-Up: Rain Barrel Distributions at WCCD Office</a><br /><em>Must be picked-up at the first spring distribution event or within 2 months of purchase according to the <a style="font-size:13px;" href="https://store.washtenawcd.org/pages/return-policy?pb=0">refund policy</a>.</em></div>
             {% endif %}
 <!-- WCCD Edit - Show Custom Pick up tags END --> 
           
