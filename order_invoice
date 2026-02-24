@@ -337,6 +337,37 @@
               {% endif %}
             {% endfor %}
           {% endif %}
+
+<!-- WCCD Edit - Show Custom Pick up tags START --> 
+          <!-- Show Custom Pick up tags for current sales only! --> 
+          {% assign currentyear = "now" | date: "%Y" %}
+          {% assign currentmonth = "now" | date: "%m" %}
+          {% if currentmonth == '11' or currentmonth == '12' %} <!-- if Nov or Dec, use next year tags --> 
+            {% assign currentyear = currentyear | plus: 1 %}
+          {% endif %}
+          {% assign tagstart = "Pick-Up: " | append: currentyear  %}
+            
+          {% for tag in line.product.tags %}
+            {% if currentmonth == '07' or currentmonth == '08' or currentmonth == '09' %}   <!-- Fall sale tags only --> 
+              {% if tag contains "Fall Tree" and tag contains tagstart %}
+                <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/fall-tree-native-plant-sale" target="_blank">{{ tag }}</a></div>
+              {% endif %}
+            {% else %}  <!-- Spring sale tags --> 
+              {% if tag contains "Tree & Shrub" and tag contains tagstart %}
+                <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/spring-tree-shrub-sale" target="_blank">{{ tag }}</a></div>
+              {% elsif tag contains "Native Plant Expo"  %}
+                <div class="pick-up-tag"><a href="https://washtenawcd.org/native-plant-expo" target="_blank">{{ tag }}</a></div>
+              {% elsif tag contains "Spring Native Plant Distribution" and tag contains tagstart %}
+                <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/spring-native-plant-sale" target="_blank">{{ tag }}</a></div>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          
+          {% if line.sku contains "RBSale" %}
+              <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/rain-barrel-sales" target="_blank">Pick-Up: Rain Barrel Distributions at WCCD Office</a><br /><em>Must be picked-up at the first spring distribution event or within 2 months of purchase according to the <a style="font-size:13px;" href="https://store.washtenawcd.org/pages/return-policy?pb=0">refund policy</a>.</em></div>
+            {% endif %}
+<!-- WCCD Edit - Show Custom Pick up tags END --> 
+            
         </td>
           {% if false and is_parent %}
             <td class="order-list__parent-price-cell">
@@ -564,6 +595,37 @@
                     </p>
                   {% endfor %}
                 {% endif %}
+
+<!-- WCCD Edit - Show Custom Pick up tags START --> 
+          <!-- Show Custom Pick up tags for current sales only! --> 
+          {% assign currentyear = "now" | date: "%Y" %}
+          {% assign currentmonth = "now" | date: "%m" %}
+          {% if currentmonth == '11' or currentmonth == '12' %} <!-- if Nov or Dec, use next year tags --> 
+            {% assign currentyear = currentyear | plus: 1 %}
+          {% endif %}
+          {% assign tagstart = "Pick-Up: " | append: currentyear  %}
+            
+          {% for tag in line.product.tags %}
+            {% if currentmonth == '07' or currentmonth == '08' or currentmonth == '09' %}   <!-- Fall sale tags only --> 
+              {% if tag contains "Fall Tree" and tag contains tagstart %}
+                <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/fall-tree-native-plant-sale" target="_blank">{{ tag }}</a></div>
+              {% endif %}
+            {% else %}  <!-- Spring sale tags --> 
+              {% if tag contains "Tree & Shrub" and tag contains tagstart %}
+                <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/spring-tree-shrub-sale" target="_blank">{{ tag }}</a></div>
+              {% elsif tag contains "Native Plant Expo"  %}
+                <div class="pick-up-tag"><a href="https://washtenawcd.org/native-plant-expo" target="_blank">{{ tag }}</a></div>
+              {% elsif tag contains "Spring Native Plant Distribution" and tag contains tagstart %}
+                <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/spring-native-plant-sale" target="_blank">{{ tag }}</a></div>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          
+          {% if line.sku contains "RBSale" %}
+              <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/rain-barrel-sales" target="_blank">Pick-Up: Rain Barrel Distributions at WCCD Office</a><br /><em>Must be picked-up at the first spring distribution event or within 2 months of purchase according to the <a style="font-size:13px;" href="https://store.washtenawcd.org/pages/return-policy?pb=0">refund policy</a>.</em></div>
+            {% endif %}
+<!-- WCCD Edit - Show Custom Pick up tags END --> 
+                
               </td>
 
                 <td class="order-list__parent_price-cell">
@@ -641,6 +703,37 @@
                 {% endfor %}
             {% endif %}
         {% endif %}
+
+<!-- WCCD Edit - Show Custom Pick up tags START --> 
+          <!-- Show Custom Pick up tags for current sales only! --> 
+          {% assign currentyear = "now" | date: "%Y" %}
+          {% assign currentmonth = "now" | date: "%m" %}
+          {% if currentmonth == '11' or currentmonth == '12' %} <!-- if Nov or Dec, use next year tags --> 
+            {% assign currentyear = currentyear | plus: 1 %}
+          {% endif %}
+          {% assign tagstart = "Pick-Up: " | append: currentyear  %}
+            
+          {% for tag in line.product.tags %}
+            {% if currentmonth == '07' or currentmonth == '08' or currentmonth == '09' %}   <!-- Fall sale tags only --> 
+              {% if tag contains "Fall Tree" and tag contains tagstart %}
+                <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/fall-tree-native-plant-sale" target="_blank">{{ tag }}</a></div>
+              {% endif %}
+            {% else %}  <!-- Spring sale tags --> 
+              {% if tag contains "Tree & Shrub" and tag contains tagstart %}
+                <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/spring-tree-shrub-sale" target="_blank">{{ tag }}</a></div>
+              {% elsif tag contains "Native Plant Expo"  %}
+                <div class="pick-up-tag"><a href="https://washtenawcd.org/native-plant-expo" target="_blank">{{ tag }}</a></div>
+              {% elsif tag contains "Spring Native Plant Distribution" and tag contains tagstart %}
+                <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/spring-native-plant-sale" target="_blank">{{ tag }}</a></div>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          
+          {% if line.sku contains "RBSale" %}
+              <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/rain-barrel-sales" target="_blank">Pick-Up: Rain Barrel Distributions at WCCD Office</a><br /><em>Must be picked-up at the first spring distribution event or within 2 months of purchase according to the <a style="font-size:13px;" href="https://store.washtenawcd.org/pages/return-policy?pb=0">refund policy</a>.</em></div>
+            {% endif %}
+<!-- WCCD Edit - Show Custom Pick up tags END --> 
+      
     </td>
 
     {% if line_item_group.deliverable? %}
@@ -755,6 +848,36 @@
                 {% endfor %}
             {% endif %}
         {% endif %}
+<!-- WCCD Edit - Show Custom Pick up tags START --> 
+          <!-- Show Custom Pick up tags for current sales only! --> 
+          {% assign currentyear = "now" | date: "%Y" %}
+          {% assign currentmonth = "now" | date: "%m" %}
+          {% if currentmonth == '11' or currentmonth == '12' %} <!-- if Nov or Dec, use next year tags --> 
+            {% assign currentyear = currentyear | plus: 1 %}
+          {% endif %}
+          {% assign tagstart = "Pick-Up: " | append: currentyear  %}
+            
+          {% for tag in line.product.tags %}
+            {% if currentmonth == '07' or currentmonth == '08' or currentmonth == '09' %}   <!-- Fall sale tags only --> 
+              {% if tag contains "Fall Tree" and tag contains tagstart %}
+                <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/fall-tree-native-plant-sale" target="_blank">{{ tag }}</a></div>
+              {% endif %}
+            {% else %}  <!-- Spring sale tags --> 
+              {% if tag contains "Tree & Shrub" and tag contains tagstart %}
+                <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/spring-tree-shrub-sale" target="_blank">{{ tag }}</a></div>
+              {% elsif tag contains "Native Plant Expo"  %}
+                <div class="pick-up-tag"><a href="https://washtenawcd.org/native-plant-expo" target="_blank">{{ tag }}</a></div>
+              {% elsif tag contains "Spring Native Plant Distribution" and tag contains tagstart %}
+                <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/spring-native-plant-sale" target="_blank">{{ tag }}</a></div>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          
+          {% if line.sku contains "RBSale" %}
+              <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/rain-barrel-sales" target="_blank">Pick-Up: Rain Barrel Distributions at WCCD Office</a><br /><em>Must be picked-up at the first spring distribution event or within 2 months of purchase according to the <a style="font-size:13px;" href="https://store.washtenawcd.org/pages/return-policy?pb=0">refund policy</a>.</em></div>
+            {% endif %}
+<!-- WCCD Edit - Show Custom Pick up tags END --> 
+      
     </td>
 
     {% if line_item_group.deliverable? %}
@@ -929,6 +1052,36 @@
               {% endif %}
             {% endfor %}
           {% endif %}
+<!-- WCCD Edit - Show Custom Pick up tags START --> 
+          <!-- Show Custom Pick up tags for current sales only! --> 
+          {% assign currentyear = "now" | date: "%Y" %}
+          {% assign currentmonth = "now" | date: "%m" %}
+          {% if currentmonth == '11' or currentmonth == '12' %} <!-- if Nov or Dec, use next year tags --> 
+            {% assign currentyear = currentyear | plus: 1 %}
+          {% endif %}
+          {% assign tagstart = "Pick-Up: " | append: currentyear  %}
+            
+          {% for tag in line.product.tags %}
+            {% if currentmonth == '07' or currentmonth == '08' or currentmonth == '09' %}   <!-- Fall sale tags only --> 
+              {% if tag contains "Fall Tree" and tag contains tagstart %}
+                <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/fall-tree-native-plant-sale" target="_blank">{{ tag }}</a></div>
+              {% endif %}
+            {% else %}  <!-- Spring sale tags --> 
+              {% if tag contains "Tree & Shrub" and tag contains tagstart %}
+                <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/spring-tree-shrub-sale" target="_blank">{{ tag }}</a></div>
+              {% elsif tag contains "Native Plant Expo"  %}
+                <div class="pick-up-tag"><a href="https://washtenawcd.org/native-plant-expo" target="_blank">{{ tag }}</a></div>
+              {% elsif tag contains "Spring Native Plant Distribution" and tag contains tagstart %}
+                <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/spring-native-plant-sale" target="_blank">{{ tag }}</a></div>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          
+          {% if line.sku contains "RBSale" %}
+              <div class="pick-up-tag"><a href="https://washtenawcd.org/residents/sales/rain-barrel-sales" target="_blank">Pick-Up: Rain Barrel Distributions at WCCD Office</a><br /><em>Must be picked-up at the first spring distribution event or within 2 months of purchase according to the <a style="font-size:13px;" href="https://store.washtenawcd.org/pages/return-policy?pb=0">refund policy</a>.</em></div>
+            {% endif %}
+<!-- WCCD Edit - Show Custom Pick up tags END --> 
+            
         </td>
           {% if expand_bundles and line.bundle_parent? %}
             <td class="order-list__parent-price-cell">
