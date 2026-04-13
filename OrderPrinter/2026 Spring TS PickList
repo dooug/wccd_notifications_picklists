@@ -56,7 +56,7 @@ Packed by:<br /><br />
 {% assign nativeplant = "" %}
 {% assign gardenkit = "" %}
 {% assign plantingaid = "" %}
-{% assign other = "" %}v
+{% assign other = "" %}
 {% assign skuclass = "TREESALE" %}
 
     {% # - Shopify migration: replicating behaviour of line_items variable %}
