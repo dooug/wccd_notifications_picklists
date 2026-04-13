@@ -58,16 +58,14 @@ Packed by:<br /><br />
 {% assign plantingaid = "" %}
 {% assign other = "" %}v
 {% assign skuclass = "TREESALE" %}
-{% assign vendors = "UpCycle Products Plantra Washtenaw County Conservation District Nourse Farms Riverview Nursery Riverview Nursery Engel's Nursery Alpha Nurseries, INC AM Leonard Conservation Services Inc GeoTek Blackburn Mfg. plantskydd Northern Pines Nursery VanWells Nursery Moser Fruit Tree Sales Forestry Distributing Adams County Nursery Forestry Suppliers Friends of the Rouge Cameron Nursery"  %}
-{% assign vendors = vendors | escape %}
+
     {% # - Shopify migration: replicating behaviour of line_items variable %}
 {% assign shopify_migrated_refunded_line_items = refunds | map: "refund_line_items" | map: "line_item" %}
 {% assign shopify_migrated_line_items = order.line_items | concat: shopify_migrated_refunded_line_items | concat: order.tip_line_items | uniq %}
 {% assign line_items_sorted = shopify_migrated_line_items | sort: "sku" %}
     {% for line_item in line_items_sorted %}
-          TEST1 {{ line_item.title}}
-    {% if vendors contains line_item.vendor and line_item.quantity > 0 %}
-                TEST2 {{ line_item.title}}
+
+    {% if line_item.sku contains skuclass and line_item.quantity > 0 %}
       {% capture line_item_html %} 
     
  
