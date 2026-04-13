@@ -126,7 +126,7 @@ Packed by:<br /><br />
         <td><strong style="font-size: 20px;">{{ bcount }}</strong> x</td>
         <td>{{ bundlename }}</td>
         <td  class="font18"><b>{{ line_item.product.title }}</b></td>
-        <td>{{ total }}<br /> <!--<span style="font-size: 8px">{{ line_item.quantity }} x {{ line_item.variant.title }}</span>--></td>
+        <td style="text-align:center;">{{ total }}<br /> <!--<span style="font-size: 8px">{{ line_item.quantity }} x {{ line_item.variant.title }}</span>--></td>
       </tr>
       {% else %}
       <tr>
@@ -134,7 +134,7 @@ Packed by:<br /><br />
         <td><strong style="font-size: 20px;">{{ line_item.quantity }}</strong> x</td>
         <td>{{ line_item.variant.title }}</td>
         <td  class="font18"><b>{{ line_item.product.title }}</b></td>
-        <td>{{ total }}</td>
+        <td style="text-align:center;">{{ total }}</td>
       </tr>
     {% endif %}
 
