@@ -152,7 +152,6 @@ Packed by:<br /><br />
     
     <!-- skip unrelated items from other sales -->
           {% assign line_item_html = "" %}
-      HERE
     {% endif %}
 
 
